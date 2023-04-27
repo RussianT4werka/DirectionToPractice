@@ -16,7 +16,6 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Поиск"/>
             <TextBox Width="150" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Command="{Binding CreateDocument}" Content="Выдать направление"/>
         </StackPanel>
 
             <DataGrid Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
