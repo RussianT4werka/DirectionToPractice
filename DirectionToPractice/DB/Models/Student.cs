@@ -7,10 +7,6 @@ namespace DirectionToPractice.DB.Models
     public partial class Student
     {
         public Student()
-        {
-            Practices = new HashSet<Practice>();
-        }
-
         public int Id { get; set; }
         public int GroupId { get; set; }
         public string Surname { get; set; } = null!;
