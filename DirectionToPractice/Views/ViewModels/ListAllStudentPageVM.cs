@@ -3,9 +3,12 @@ using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
 using Microsoft.EntityFrameworkCore;
+using Spire.Doc;
+using Spire.Doc.Documents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,21 +58,22 @@ namespace DirectionToPractice.Views.ViewModels
             Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
             CreateDirection = new Command(() =>
             {
-                try
-                {
-                    var helper = new WordHelper("Test.docx");
-                    var items = new Dictionary<string, string>
-                {
-                    {"<FIO>", SelectedStudent.Surname }
-                };
+                //Load Document
+                Document document = new Document();
+                document.LoadFromFile("Test.docx");
+                Section section = document.Sections[0];
+                Section section1 = document.Sections[0];
 
-                    helper.EditDocument(items);
-                }
-                catch
-                {
-                    MessageBox.Show("У вас установлена неофициальная версия Word");
-                }
-                
+                Paragraph para2 = section1.Paragraphs[1];
+                para2.Replace("___________________________________", $"{SelectedStudent.FIO}", false, true);
+                //TextRange tr = para2.AppendText($"{SelectedStudent.Surname}");
+
+                document.SaveToFile("Direction.docx", FileFormat.Docx);
+                ProcessStartInfo process = new ProcessStartInfo();
+                process.FileName = "explorer.exe";
+                process.Arguments = "Direction.docx";
+                process.UseShellExecute = true;
+                System.Diagnostics.Process.Start(process);
             });
         }
 

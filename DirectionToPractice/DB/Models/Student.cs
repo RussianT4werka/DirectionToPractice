@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DirectionToPractice.DB.Models
 {
@@ -18,5 +19,8 @@ namespace DirectionToPractice.DB.Models
 
         public virtual Group Group { get; set; } = null!;
         public virtual ICollection<Practice> Practices { get; set; }
+
+        [NotMapped]
+        public string FIO { get => Surname + " " + Name + " " + Patronymic; }
     }
 }
