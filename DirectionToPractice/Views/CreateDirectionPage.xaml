@@ -1,0 +1,60 @@
+﻿<Page x:Class="DirectionToPractice.Views.CreateDirectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DirectionToPractice.Views" xmlns:system="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreateDirectionPage">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="372" Width="638">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Margin="0 0 30 0">
+                    <Label Content="Вид практики"/>
+                    <ComboBox SelectedValue="{Binding SpeciesPractice}">
+                        <system:String>учебной</system:String>
+                        <system:String>производственной</system:String>
+                        <system:String>преддипломной</system:String>
+                    </ComboBox>
+                    <Label Content="Модуль практики"/>
+                    <TextBox Text="{Binding ModulePractice}"/>
+                    <Label Content="Профессия на практике"/>
+                    <TextBox Text="{Binding Profession}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 0 30 0">
+                    <Label Content="Дата начала"/>
+                    <DatePicker SelectedDate="{Binding DateStart}"/>
+                    <Label Content="Дата конца"/>
+                    <DatePicker SelectedDate="{Binding DateEnd}"/>
+                    <Label Content="Кол-во часов/часа (пишите ед.изм.)"/>
+                    <TextBox Text="{Binding CountHours}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Вид и название организации"/>
+                    <TextBox Text="{Binding SpeciesOrganisation}"/>
+                    <Label Content="Населённый пункт"/>
+                    <ComboBox SelectedValue="{Binding City}">
+                        <system:String>г.Владивосток</system:String>
+                        <system:String>г.Артём</system:String>
+                        <system:String>г.Находка</system:String>
+                    </ComboBox>
+                    <Label Content="Улица и дом"/>
+                    <TextBox Text="{Binding StreetHouse}"/>
+                </StackPanel>
+                
+            </StackPanel>
+            <StackPanel Margin="27 0 27 0">
+                <Label Content="Руководитель практики"/>
+                <TextBox Text="{Binding SupervisorPracticeFIO}"/>
+            </StackPanel>
+            
+            <Button Content="Выдать направление" Command="{Binding CreateDirection}"/>
+        </StackPanel>
+        
+        
+    </Grid>
+</Page>

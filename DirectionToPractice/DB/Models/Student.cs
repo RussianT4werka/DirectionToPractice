@@ -6,15 +6,15 @@ namespace DirectionToPractice.DB.Models
 {
     public partial class Student
     {
-        public Student()
         public int Id { get; set; }
         public int GroupId { get; set; }
         public string Surname { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string? Patronymic { get; set; }
+        public int GenderId { get; set; }
 
+        public virtual Gender Gender { get; set; } = null!;
         public virtual Group Group { get; set; } = null!;
-        public virtual ICollection<Practice> Practices { get; set; }
 
         [NotMapped]
         public string FIO { get => Surname + " " + Name + " " + Patronymic; }

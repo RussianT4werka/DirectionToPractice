@@ -22,7 +22,7 @@ namespace DirectionToPractice.Views.ViewModels
         private ObservableCollection<Student> students;
         private Student selectedStudent;
 
-        public Command CreateDirection { get; set; }
+        public Command ToCreateDirectionPage { get; set; }
         public ObservableCollection<Student> Students
         {
             get => students;
@@ -53,27 +53,12 @@ namespace DirectionToPractice.Views.ViewModels
             }
 
         }
-        public ListAllStudentPageVM()
+        public ListAllStudentPageVM(MainWindowVM mainVM)
         {
             Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
-            CreateDirection = new Command(() =>
+            ToCreateDirectionPage = new Command(() =>
             {
-                //Load Document
-                Document document = new Document();
-                document.LoadFromFile("Test.docx");
-                Section section = document.Sections[0];
-                Section section1 = document.Sections[0];
-
-                Paragraph para2 = section1.Paragraphs[1];
-                para2.Replace("___________________________________", $"{SelectedStudent.FIO}", false, true);
-                //TextRange tr = para2.AppendText($"{SelectedStudent.Surname}");
-
-                document.SaveToFile("Direction.docx", FileFormat.Docx);
-                ProcessStartInfo process = new ProcessStartInfo();
-                process.FileName = "explorer.exe";
-                process.Arguments = "Direction.docx";
-                process.UseShellExecute = true;
-                System.Diagnostics.Process.Start(process);
+                mainVM.CurrentPage = new CreateDirectionPage(SelectedStudent);
             });
         }
 

@@ -34,7 +34,7 @@ namespace DirectionToPractice.Views.ViewModels
 
             ListStudents = new Command(() =>
             {
-                CurrentPage = new ListAllStudentPage();
+                CurrentPage = new ListAllStudentPage(this);
             });
         }
     }

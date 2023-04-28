@@ -19,8 +19,9 @@ namespace DirectionToPractice.DB
         {
         }
 
+        public virtual DbSet<Gender> Genders { get; set; } = null!;
         public virtual DbSet<Group> Groups { get; set; } = null!;
-        public virtual DbSet<Practice> Practices { get; set; } = null!;
+        public virtual DbSet<Speciality> Specialities { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,37 +29,45 @@ namespace DirectionToPractice.DB
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=practice;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=practice;Trusted_Connection=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Gender>(entity =>
+            {
+                entity.ToTable("Gender");
+
+                entity.Property(e => e.Name).HasMaxLength(7);
+            });
+
             modelBuilder.Entity<Group>(entity =>
             {
                 entity.ToTable("Group");
+
+                entity.Property(e => e.SpecialityId).HasColumnName("SpecialityID");
+
+                entity.HasOne(d => d.Speciality)
+                    .WithMany(p => p.Groups)
+                    .HasForeignKey(d => d.SpecialityId)
+                    .HasConstraintName("FK_Group_Speciality");
             });
 
-            modelBuilder.Entity<Practice>(entity =>
+            modelBuilder.Entity<Speciality>(entity =>
             {
-                entity.ToTable("Practice");
+                entity.ToTable("Speciality");
 
-                entity.Property(e => e.DateEnd).HasColumnType("date");
+                entity.Property(e => e.Code).HasMaxLength(11);
 
-                entity.Property(e => e.DateStart).HasColumnType("date");
-
-                entity.Property(e => e.StudentId).HasColumnName("StudentID");
-
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.Practices)
-                    .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Practice_Student");
+                entity.Property(e => e.Name).HasMaxLength(100);
             });
 
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.ToTable("Student");
+
+                entity.Property(e => e.GenderId).HasColumnName("GenderID");
 
                 entity.Property(e => e.GroupId).HasColumnName("GroupID");
 
@@ -67,6 +76,12 @@ namespace DirectionToPractice.DB
                 entity.Property(e => e.Patronymic).HasMaxLength(50);
 
                 entity.Property(e => e.Surname).HasMaxLength(50);
+
+                entity.HasOne(d => d.Gender)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.GenderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Student_Gender");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Students)

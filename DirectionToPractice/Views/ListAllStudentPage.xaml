@@ -21,7 +21,7 @@
             <DataGrid Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Command="{Binding CreateDirection}" Header="Создать направление"/>
+                    <MenuItem Command="{Binding ToCreateDirectionPage}" Header="Создать направление"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

@@ -2,6 +2,7 @@
 using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace DirectionToPractice.Views.ViewModels
         }
         public ListGroupPageVM(MainWindowVM mainVM)
         {
-            Groups = new List<Group>(practiceContext.GetInstance().Groups.ToList());
+            Groups = new List<Group>(practiceContext.GetInstance().Groups.Include( s => s.Speciality).ToList());
 
             GetStudents = new Command(() =>
             {

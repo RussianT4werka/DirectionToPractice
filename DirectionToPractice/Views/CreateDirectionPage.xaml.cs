@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace DirectionToPractice.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ListAllStudentPage.xaml
+    /// Логика взаимодействия для CreateDirectionPage.xaml
     /// </summary>
-    public partial class ListAllStudentPage : Page
+    public partial class CreateDirectionPage : Page
     {
-        public ListAllStudentPage(MainWindowVM mainVM)
+        public CreateDirectionPage(DB.Models.Student selectedStudent)
         {
             InitializeComponent();
-            DataContext = new ListAllStudentPageVM(mainVM);
+            DataContext = new CreateDirectionPageVM(selectedStudent);
         }
     }
 }

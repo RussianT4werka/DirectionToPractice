@@ -70,9 +70,9 @@
             <Setter Property="CanUserDeleteRows" Value="False"/>
         </Style>
 
-        <Style TargetType="Border">
+        <!--<Style TargetType="Border">
             <Setter Property="Background" Value="#FFFFE6CD"/>
-        </Style>
+        </Style>-->
 
         <Style TargetType="ComboBox">
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -85,6 +85,11 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="2"/>
         </Style>
     </Application.Resources>
 </Application>
