@@ -11,9 +11,7 @@ namespace DirectionToPractice.DB.Models
         public string Surname { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string? Patronymic { get; set; }
-        public int GenderId { get; set; }
 
-        public virtual Gender Gender { get; set; } = null!;
         public virtual Group Group { get; set; } = null!;
 
         [NotMapped]

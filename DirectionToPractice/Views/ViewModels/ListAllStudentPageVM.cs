@@ -1,5 +1,4 @@
-﻿using DirectionToPractice.Classes;
-using DirectionToPractice.DB;
+﻿using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
 using Microsoft.EntityFrameworkCore;

@@ -9,7 +9,12 @@
       Title="ListStudentPage">
 
     <Grid>
-        <DataGrid LoadingRow="Ai" ItemsSource="{Binding Students}">
+        <DataGrid LoadingRow="Ai" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding ToCreateDirectionPage}" Header="Создать направление"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
                 <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>

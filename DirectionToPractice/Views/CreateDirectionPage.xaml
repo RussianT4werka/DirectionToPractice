@@ -13,15 +13,19 @@
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <StackPanel Margin="0 0 30 0">
                     <Label Content="Вид практики"/>
-                    <ComboBox SelectedValue="{Binding SpeciesPractice}">
-                        <system:String>учебной</system:String>
-                        <system:String>производственной</system:String>
-                        <system:String>преддипломной</system:String>
+                    <ComboBox ItemsSource="{Binding PracticeType}"
+                              SelectedItem="{Binding SelectedPracticeType}">
                     </ComboBox>
-                    <Label Content="Модуль практики"/>
-                    <TextBox Text="{Binding ModulePractice}"/>
-                    <Label Content="Профессия на практике"/>
-                    <TextBox Text="{Binding Profession}"/>
+                    <Label Content="Номер модуля практики"/>
+                    <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
+                              DisplayMemberPath="Number"
+                              SelectedItem="{Binding SelectedModulePractice}"/>
+                    <!--<Label Content="Профессия на практике"/>
+                    <TextBox Text="{Binding Profession}"/>-->
+                    <Label Content="Руководитель практики"/>
+                    <ComboBox ItemsSource="{Binding Teachers}"
+                              DisplayMemberPath="SNP"
+                              SelectedItem="{Binding SelectedTeacher}"/>
                 </StackPanel>
 
                 <StackPanel Margin="0 0 30 0">
@@ -29,7 +33,7 @@
                     <DatePicker SelectedDate="{Binding DateStart}"/>
                     <Label Content="Дата конца"/>
                     <DatePicker SelectedDate="{Binding DateEnd}"/>
-                    <Label Content="Кол-во часов/часа (пишите ед.изм.)"/>
+                    <Label Content="Кол-во часов"/>
                     <TextBox Text="{Binding CountHours}"/>
                 </StackPanel>
 
@@ -40,6 +44,7 @@
                     <ComboBox SelectedValue="{Binding City}">
                         <system:String>г.Владивосток</system:String>
                         <system:String>г.Артём</system:String>
+                        <system:String>г.Уссурийск</system:String>
                         <system:String>г.Находка</system:String>
                     </ComboBox>
                     <Label Content="Улица и дом"/>
@@ -47,10 +52,7 @@
                 </StackPanel>
                 
             </StackPanel>
-            <StackPanel Margin="27 0 27 0">
-                <Label Content="Руководитель практики"/>
-                <TextBox Text="{Binding SupervisorPracticeFIO}"/>
-            </StackPanel>
+            
             
             <Button Content="Выдать направление" Command="{Binding CreateDirection}"/>
         </StackPanel>

@@ -1,5 +1,4 @@
-﻿using DirectionToPractice.Classes;
-using DirectionToPractice.DB;
+﻿using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +42,7 @@ namespace DirectionToPractice.Views.ViewModels
 
             GetStudents = new Command(() =>
             {
-                mainVM.SetPage(new ListStudentPage(SelectedGroup));
+                mainVM.SetPage(new ListStudentPage(SelectedGroup, mainVM));
             });
         }
     }
