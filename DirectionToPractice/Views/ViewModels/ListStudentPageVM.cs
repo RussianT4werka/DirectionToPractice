@@ -14,7 +14,7 @@ namespace DirectionToPractice.Views.ViewModels
         public List<Student> Students { get; set; }
         public ListStudentPageVM(DB.Models.Group selectedGroup)
         {
-            Students = new List<Student>(practiceContext.GetInstance().Students.Where( s => s.GroupId == selectedGroup.Id));
+            Students = new List<Student>(practiceContext.GetInstance().Students.Where( s => s.GroupNumber == selectedGroup.Number));
         }
     }
 }

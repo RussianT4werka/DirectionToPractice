@@ -18,7 +18,7 @@
             <TextBox Width="150" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-            <DataGrid Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+        <DataGrid LoadingRow="Ai" Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding ToCreateDirectionPage}" Header="Создать направление"/>

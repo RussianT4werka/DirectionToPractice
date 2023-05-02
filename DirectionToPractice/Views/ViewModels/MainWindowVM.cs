@@ -11,31 +11,45 @@ namespace DirectionToPractice.Views.ViewModels
 {
     public class MainWindowVM : BaseVM
     {
+        private Stack<Page> pages = new();
         private Page currentPage;
         public Command ListGroups { get; set; }
         public Command ListStudents { get; set; }
         public Page CurrentPage 
         { 
             get => currentPage;
-            set
+            private set
             {
                 currentPage = value;
                 SignalChanged();
             }
         }
+
         public MainWindowVM()
         {
-            CurrentPage = new ListGroupPage(this);
+            SetPage(new ListGroupPage(this));
 
             ListGroups = new Command(() =>
             {
-                CurrentPage = new ListGroupPage(this);
+                SetPage(new ListGroupPage(this));
             });
 
             ListStudents = new Command(() =>
             {
-                CurrentPage = new ListAllStudentPage(this);
+                SetPage(new ListAllStudentPage(this));
             });
+        }
+
+        public void GoToPrevPage()
+        {
+            pages.Pop();
+            CurrentPage = pages.Peek();
+        }
+
+        public void SetPage(Page page)
+        {
+            pages.Push(page);
+            CurrentPage = page;
         }
     }
 }

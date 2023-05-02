@@ -7,7 +7,7 @@ namespace DirectionToPractice.DB.Models
     public partial class Student
     {
         public int Id { get; set; }
-        public int GroupId { get; set; }
+        public int GroupNumber { get; set; }
         public string Surname { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string? Patronymic { get; set; }

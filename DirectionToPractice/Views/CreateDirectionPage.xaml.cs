@@ -21,10 +21,10 @@ namespace DirectionToPractice.Views
     /// </summary>
     public partial class CreateDirectionPage : Page
     {
-        public CreateDirectionPage(DB.Models.Student selectedStudent)
+        public CreateDirectionPage(DB.Models.Student selectedStudent, MainWindowVM mainVM)
         {
             InitializeComponent();
-            DataContext = new CreateDirectionPageVM(selectedStudent);
+            DataContext = new CreateDirectionPageVM(selectedStudent, mainVM);
         }
     }
 }

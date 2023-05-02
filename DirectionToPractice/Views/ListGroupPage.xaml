@@ -9,14 +9,13 @@
       Title="ListGroupPage">
 
     <Grid>
-        <DataGrid ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" >
+        <DataGrid LoadingRow="Ai" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" >
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding GetStudents}" Header="Студенты группы"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}" IsReadOnly="True" Header="№"/>
                 <DataGridTextColumn Binding="{Binding Number}" IsReadOnly="True" Header="Номер группы"/>
                 <DataGridTextColumn Binding="{Binding Course}" IsReadOnly="True" Header="Курс"/>
                 <DataGridTextColumn Binding="{Binding Speciality.Name}" IsReadOnly="True" Header="Название специальности"/>

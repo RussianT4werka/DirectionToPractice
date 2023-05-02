@@ -12,29 +12,28 @@ namespace DirectionToPractice.DB
 
         public practiceContext()
         {
-        }
-
-        public practiceContext(DbContextOptions<practiceContext> options)
-            : base(options)
-        {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Gender> Genders { get; set; } = null!;
         public virtual DbSet<Group> Groups { get; set; } = null!;
         public virtual DbSet<Speciality> Specialities { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
+        public virtual DbSet<Teacher> Teachers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=practice;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer("server=192.168.200.35;user=user50;database=practice;password=26643;TrustServerCertificate=true");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UseCollation("Cyrillic_General_100_CI_AI_SC_UTF8");
+
             modelBuilder.Entity<Gender>(entity =>
             {
                 entity.ToTable("Gender");
@@ -44,7 +43,14 @@ namespace DirectionToPractice.DB
 
             modelBuilder.Entity<Group>(entity =>
             {
+                entity.HasKey(e => e.Number)
+                    .HasName("PK_Group_1");
+
                 entity.ToTable("Group");
+
+                entity.HasIndex(e => e.SpecialityId, "IX_Group_SpecialityID");
+
+                entity.Property(e => e.Number).ValueGeneratedNever();
 
                 entity.Property(e => e.SpecialityId).HasColumnName("SpecialityID");
 
@@ -67,9 +73,11 @@ namespace DirectionToPractice.DB
             {
                 entity.ToTable("Student");
 
-                entity.Property(e => e.GenderId).HasColumnName("GenderID");
+                entity.HasIndex(e => e.GenderId, "IX_Student_GenderID");
 
-                entity.Property(e => e.GroupId).HasColumnName("GroupID");
+                entity.HasIndex(e => e.GroupNumber, "IX_Student_GroupID");
+
+                entity.Property(e => e.GenderId).HasColumnName("GenderID");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
@@ -85,9 +93,20 @@ namespace DirectionToPractice.DB
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.GroupId)
+                    .HasForeignKey(d => d.GroupNumber)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Student_Group");
+            });
+
+            modelBuilder.Entity<Teacher>(entity =>
+            {
+                entity.ToTable("Teacher");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Patronymic).HasMaxLength(50);
+
+                entity.Property(e => e.Surname).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);
@@ -97,7 +116,7 @@ namespace DirectionToPractice.DB
 
         public static practiceContext GetInstance()
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new practiceContext();
             }

@@ -37,13 +37,13 @@ namespace DirectionToPractice.Views.ViewModels
                 SignalChanged();
             }
         }
-        public ListGroupPageVM(MainWindowVM mainVM)
+        public ListGroupPageVM(MainWindowVM mainVM) 
         {
             Groups = new List<Group>(practiceContext.GetInstance().Groups.Include( s => s.Speciality).ToList());
 
             GetStudents = new Command(() =>
             {
-                mainVM.CurrentPage = new ListStudentPage(SelectedGroup);
+                mainVM.SetPage(new ListStudentPage(SelectedGroup));
             });
         }
     }

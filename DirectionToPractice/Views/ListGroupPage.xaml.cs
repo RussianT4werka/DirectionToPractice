@@ -26,5 +26,9 @@ namespace DirectionToPractice.Views
             InitializeComponent();
             DataContext = new ListGroupPageVM(mainVM);
         }
+        private void Ai(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex()).ToString();
+        }
     }
 }
