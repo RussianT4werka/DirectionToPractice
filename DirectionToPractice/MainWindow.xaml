@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="Направление на практику" WindowStartupLocation="CenterScreen" MinHeight="650" MinWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Content="Список всех групп" Command="{Binding ListGroups}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Background="#FF2B579A">
+            <StackPanel>
+                <Button Margin="3 20 3 3" Content="Список всех групп" Command="{Binding ListGroups}"/>
                 <Button Content="Список всех студентов" Command="{Binding ListStudents}"/>
             </StackPanel>
         </Border>
-        <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+        <Frame Grid.Column="0" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>

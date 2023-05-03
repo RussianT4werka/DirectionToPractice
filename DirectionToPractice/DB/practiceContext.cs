@@ -17,6 +17,7 @@ namespace DirectionToPractice.DB
 
         public virtual DbSet<Group> Groups { get; set; } = null!;
         public virtual DbSet<ModulePractice> ModulePractices { get; set; } = null!;
+        public virtual DbSet<PracticeType> PracticeTypes { get; set; } = null!;
         public virtual DbSet<Speciality> Specialities { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
         public virtual DbSet<Teacher> Teachers { get; set; } = null!;
@@ -26,12 +27,14 @@ namespace DirectionToPractice.DB
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=practice;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("server=192.168.200.35;user=user50;password=26643;database=practice;TrustServerCertificate=true");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UseCollation("Cyrillic_General_100_CI_AI_SC_UTF8");
+
             modelBuilder.Entity<Group>(entity =>
             {
                 entity.HasKey(e => e.Number)
@@ -55,17 +58,34 @@ namespace DirectionToPractice.DB
             {
                 entity.ToTable("ModulePractice");
 
+                entity.HasIndex(e => e.SpecialityId, "IX_ModulePractice_SpecialityID");
+
                 entity.Property(e => e.Number).HasMaxLength(10);
+
+                entity.Property(e => e.PracticeTypeId).HasColumnName("PracticeTypeID");
 
                 entity.Property(e => e.SpecialityId).HasColumnName("SpecialityID");
 
-                entity.Property(e => e.Text).HasMaxLength(50);
+                entity.Property(e => e.Text).HasMaxLength(100);
+
+                entity.HasOne(d => d.PracticeType)
+                    .WithMany(p => p.ModulePractices)
+                    .HasForeignKey(d => d.PracticeTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ModulePractice_PracticeType");
 
                 entity.HasOne(d => d.Speciality)
                     .WithMany(p => p.ModulePractices)
                     .HasForeignKey(d => d.SpecialityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ModulePractice_Speciality");
+            });
+
+            modelBuilder.Entity<PracticeType>(entity =>
+            {
+                entity.ToTable("PracticeType");
+
+                entity.Property(e => e.Name).HasMaxLength(20);
             });
 
             modelBuilder.Entity<Speciality>(entity =>

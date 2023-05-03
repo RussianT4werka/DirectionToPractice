@@ -10,10 +10,6 @@
         <SolidColorBrush x:Key="List" Color="#FF212020"/>
 
         <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <!--<Setter Property="Background" Value="{StaticResource AddBackgroundBrush}"/>-->
-            <Setter Property="Foreground" Value="{StaticResource Textbox}"/>
-            <!--<Setter Property="BorderThickness" Value="0"/>-->
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
@@ -28,61 +24,20 @@
             <Setter Property="Padding" Value="3"/>
         </Style>
 
-        <Style TargetType="PasswordBox">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Background" Value="{StaticResource Textbox}"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="3"/>
-        </Style>
-
-        <Style TargetType="ListView">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="Background" Value="{StaticResource List}"/>
-        </Style>
-
-        <Style TargetType="ListBox">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="Background" Value="{StaticResource List}"/>
-        </Style>
-
-        <Style TargetType="Menu">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="Background" Value="{StaticResource List}"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="3"/>
-        </Style>
-
-        <!--<Style TargetType="MenuItem">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="Background" Value="{StaticResource List}"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="Padding" Value="3"/>
-        </Style>-->
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="#FFFFE6CD"/>
-            <Setter Property="RowBackground" Value="#FFFFE6CD"/>
+            <!--<Setter Property="Background" Value="#FFFFE6CD"/>
+            <Setter Property="RowBackground" Value="#FFFFE6CD"/>-->
             <Setter Property="AutoGenerateColumns" Value="False"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
         </Style>
 
-        <!--<Style TargetType="Border">
-            <Setter Property="Background" Value="#FFFFE6CD"/>
-        </Style>-->
-
         <Style TargetType="ComboBox">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Background" Value="{StaticResource AddBackgroundBrush}"/>
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
         </Style>
 
         <Style TargetType="ComboBoxItem">
-            <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
         </Style>

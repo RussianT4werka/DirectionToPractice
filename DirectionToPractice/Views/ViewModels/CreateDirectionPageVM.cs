@@ -20,9 +20,13 @@ namespace DirectionToPractice.Views.ViewModels
         private static CyrName cyrName = new CyrName();
         private static CyrNumber cyrNumber = new CyrNumber();
         private bool block = true;
+        private PracticeType selectedPracticeType;
+        private List<ModulePractice> modulePractices;
 
-        public bool Block 
-        { 
+        public Student SelectedStudent { get; set; }
+
+        public bool Block
+        {
             get => block;
             set
             {
@@ -31,14 +35,35 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
-        public List<string> PracticeType { get; set; } = new List<string>() { "учебной", "производственной", "преддипломной" };
-        public string SelectedPracticeType { get; set; }
-        public List<ModulePractice> ModulePractices { get; set; }
+        public List<PracticeType> PracticeTypes { get; set; }
+        public PracticeType SelectedPracticeType
+        {
+            get => selectedPracticeType;
+            set
+            {
+                selectedPracticeType = value;
+                Filter();
+                SignalChanged();
+            }
+        }
+
+        public List<ModulePractice> ModulePractices
+        {
+            get => modulePractices;
+            set
+            {
+                modulePractices = value;
+                SignalChanged();
+            }
+        }
         public ModulePractice SelectedModulePractice { get; set; }
+
         public List<Teacher> Teachers { get; set; }
         public Teacher SelectedTeacher { get; set; }
+
         public DateTime DateStart { get; set; } = DateTime.Now;
         public DateTime DateEnd { get; set; } = DateTime.Now;
+
         public int CountHours { get; set; }
         public string SpeciesOrganisation { get; set; }
         public string City { get; set; }
@@ -48,12 +73,14 @@ namespace DirectionToPractice.Views.ViewModels
         public Command CreateDirection { get; set; }
         public CreateDirectionPageVM(DB.Models.Student selectedStudent, MainWindowVM mainVM)
         {
-            ModulePractices = new List<ModulePractice>(practiceContext.GetInstance().ModulePractices.Where(s => s.SpecialityId == selectedStudent.Group.SpecialityId));
+            SelectedStudent = selectedStudent;
+            Filter();
+            PracticeTypes = new List<PracticeType>(practiceContext.GetInstance().PracticeTypes.ToList());
             Teachers = new List<Teacher>(practiceContext.GetInstance().Teachers.ToList());
             CreateDirection = new Command(() =>
             {
-                
-                if (string.IsNullOrEmpty(SelectedPracticeType) || SelectedModulePractice == null || SelectedTeacher == null || string.IsNullOrEmpty(CountHours.ToString()) || string.IsNullOrEmpty(SpeciesOrganisation) || string.IsNullOrEmpty(City) || string.IsNullOrEmpty(StreetHouse))
+
+                if (SelectedPracticeType == null || SelectedModulePractice == null || SelectedTeacher == null || string.IsNullOrEmpty(CountHours.ToString()) || string.IsNullOrEmpty(SpeciesOrganisation) || string.IsNullOrEmpty(City) || string.IsNullOrEmpty(StreetHouse))
                 {
                     MessageBox.Show("Не все поля заполнены");
                 }
@@ -71,9 +98,9 @@ namespace DirectionToPractice.Views.ViewModels
                     CyrResult resultName = cyrName.Decline($"{selectedStudent.Name}");
                     CyrResult resultPatronymic = cyrName.Decline($"{selectedStudent.Patronymic}");
 
-                    paraFIO.Replace("Лукошкина", $"{resultSurname.Genitive}", false, true);
-                    paraFIO.Replace("Анатолия", $"{resultName.Genitive}", false, true);
-                    paraFIO.Replace("Алексеевича", $"{resultPatronymic.Genitive}", false, true);
+                    paraFIO.Replace("Лукошкина", $"{resultSurname.Accusative}", false, true);
+                    paraFIO.Replace("Анатолия", $"{resultName.Accusative}", false, true);
+                    paraFIO.Replace("Алексеевича", $"{resultPatronymic.Accusative}", false, true);
 
                     //Выбираем 7 абзац
                     Paragraph paraCCS = section.Paragraphs[7];
@@ -83,11 +110,11 @@ namespace DirectionToPractice.Views.ViewModels
 
                     //Выбираем 8 абзац
                     Paragraph paraSP = section.Paragraphs[8];
-                    paraSP.Replace("производственной", $"{SelectedPracticeType}", false, true);
+                    paraSP.Replace("производственной", $"{SelectedPracticeType.Name}", false, true);
 
                     //Выбираем 10 абзац
                     Paragraph paraMDDC = section.Paragraphs[10];
-                    if (SelectedPracticeType == "преддипломной")
+                    if (SelectedPracticeType.Id == 3)
                     {
                         paraMDDC.Replace("ПП.04 «Выполнение работ по профессии «Наладчик технологического оборудования»» ", "", false, true);
                         Paragraph paraH = section.Paragraphs[10];
@@ -98,12 +125,12 @@ namespace DirectionToPractice.Views.ViewModels
                     }
                     else
                     {
-                        switch (SelectedPracticeType)
+                        switch (SelectedPracticeType.Id)
                         {
-                            case "учебной":
+                            case 1:
                                 paraMDDC.Replace("ПП", "УП", false, true);
                                 break;
-                            case "производственной":
+                            case 2:
                                 paraMDDC.Replace("ПП", "ПП", false, true);
                                 break;
                         }
@@ -167,9 +194,16 @@ namespace DirectionToPractice.Views.ViewModels
                         MessageBox.Show("Закройте предыдущий файл");
                     }
                 }
-
-
             });
+        }
+        private void Filter()
+        {
+            IQueryable<ModulePractice> modulePractices = practiceContext.GetInstance().ModulePractices;
+            if (SelectedPracticeType != null)
+                modulePractices = modulePractices.Where(s =>  s.PracticeTypeId == SelectedPracticeType.Id);
+            if (SelectedStudent != null)
+                modulePractices = modulePractices.Where(s => s.SpecialityId == SelectedStudent.Group.SpecialityId);
+            ModulePractices = modulePractices.ToList();
         }
     }
 }

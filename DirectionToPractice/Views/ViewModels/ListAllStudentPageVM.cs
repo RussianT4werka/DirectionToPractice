@@ -66,7 +66,7 @@ namespace DirectionToPractice.Views.ViewModels
             IQueryable<Student> searchRequest = practiceContext.GetInstance().Students;
 
             if (!string.IsNullOrEmpty(Search))
-                searchRequest = searchRequest.Where(s => s.Surname.Contains(Search) || s.Name.Contains(Search) || s.Patronymic.Contains(Search));
+                searchRequest = searchRequest.Where(s => s.Surname.Contains(Search) || s.Name.Contains(Search) || s.Patronymic.Contains(Search) || s.GroupNumber.ToString().Contains(Search));
             Students = new ObservableCollection<Student>(searchRequest);
         }
     }
