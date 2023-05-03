@@ -10,59 +10,88 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding SelectedStudent.FIO}"/>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="372" Width="638">
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <StackPanel Margin="0 0 30 0">
-                    <Label Content="Вид практики"/>
-                    <ComboBox ItemsSource="{Binding PracticeTypes}"
-                              DisplayMemberPath="Name"
-                              SelectedItem="{Binding SelectedPracticeType}">
-                    </ComboBox>
-                    <Label Content="Номер модуля практики"/>
-                    <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
-                              DisplayMemberPath="Number"
-                              SelectedItem="{Binding SelectedModulePractice}"/>
-                    <!--<Label Content="Профессия на практике"/>
-                    <TextBox Text="{Binding Profession}"/>-->
-                    <Label Content="Руководитель практики"/>
-                    <ComboBox ItemsSource="{Binding Teachers}"
-                              DisplayMemberPath="SNP"
-                              SelectedItem="{Binding SelectedTeacher}"/>
-                </StackPanel>
 
-                <StackPanel Margin="0 0 30 0">
-                    <Label Content="Дата начала"/>
-                    <DatePicker SelectedDate="{Binding DateStart}"/>
-                    <Label Content="Дата конца"/>
-                    <DatePicker SelectedDate="{Binding DateEnd}"/>
-                    <Label Content="Кол-во часов"/>
-                    <TextBox Text="{Binding CountHours}"/>
-                </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-                <StackPanel>
-                    <Label Content="Вид и название организации"/>
-                    <TextBox Text="{Binding SpeciesOrganisation}"/>
-                    <Label Content="Населённый пункт"/>
-                    <ComboBox SelectedValue="{Binding City}">
-                        <system:String>г.Владивосток</system:String>
-                        <system:String>г.Артём</system:String>
-                        <system:String>г.Уссурийск</system:String>
-                        <system:String>г.Находка</system:String>
-                    </ComboBox>
-                    <Label Content="Улица и дом"/>
-                    <TextBox Text="{Binding StreetHouse}"/>
-                </StackPanel>
-                
+        <StackPanel Margin="0 35 0 0" HorizontalAlignment="Center" Grid.ColumnSpan="3">
+            <Label Margin="3 3 3 0" FontSize="25" FontWeight="Bold" Content="{Binding SelectedStudent.FIO}"/>
+            <StackPanel Margin="3 0 3 3" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Label Margin="3 0 3 3" Content="Студент группы"/>
+                <Label Margin="3 0 3 3" Content="{Binding SelectedStudent.Group.Number}"/>
+                <Label Margin="3 0 3 3" Content="курс"/>
+                <Label Margin="3 0 3 3" Content="{Binding SelectedStudent.Group.Course}"/>
             </StackPanel>
             
-            
-            <Button Content="Выдать направление" Command="{Binding CreateDirection}"/>
         </StackPanel>
-        
+
+        <StackPanel Margin="10 0 10 0" VerticalAlignment="Bottom">
+            <Label Content="Вид практики"/>
+            <ComboBox ItemsSource="{Binding PracticeTypes}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding SelectedPracticeType}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="1" VerticalAlignment="Center">
+            <Label Content="Модуля практики"/>
+            <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
+                      DisplayMemberPath="Number"
+                      SelectedItem="{Binding SelectedModulePractice}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="2" VerticalAlignment="Top">
+            <Label Content="Руководитель практики"/>
+            <ComboBox ItemsSource="{Binding Teachers}"
+                      DisplayMemberPath="SNP"
+                      SelectedItem="{Binding SelectedTeacher}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Column="1" VerticalAlignment="Bottom">
+            <Label Content="Дата начала"/>
+            <DatePicker SelectedDate="{Binding DateStart}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Label Content="Дата конца"/>
+            <DatePicker SelectedDate="{Binding DateEnd}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top">
+            <Label Content="Кол-во часов"/>
+            <TextBox Text="{Binding CountHours}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Column="2" VerticalAlignment="Bottom">
+            <Label Content="Организация"/>
+            <TextBox Text="{Binding SpeciesOrganisation}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
+            <Label Content="Населённый пункт"/>
+            <ComboBox SelectedValue="{Binding City}">
+                <system:String>г.Владивосток</system:String>
+                <system:String>г.Артём</system:String>
+                <system:String>г.Уссурийск</system:String>
+                <system:String>г.Находка</system:String>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top">
+            <Label Content="Улица и дом"/>
+            <TextBox Text="{Binding StreetHouse}"/>
+        </StackPanel>
+
+        <Border Grid.Row="3"  Grid.ColumnSpan="3" Background="#FF295496">
+            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20"  VerticalAlignment="Bottom" Content="Выдать направление" Command="{Binding CreateDirection}"/>
+        </Border>
         
     </Grid>
 </Page>

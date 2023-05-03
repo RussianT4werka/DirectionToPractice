@@ -4,37 +4,36 @@
              xmlns:local="clr-namespace:DirectionToPractice"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <SolidColorBrush x:Key="Text" Color="White" />
-        <SolidColorBrush x:Key="AddBackgroundBrush" Color="Transparent" />
-        <SolidColorBrush x:Key="Textbox" Color="#FF131313"/>
-        <SolidColorBrush x:Key="List" Color="#FF212020"/>
 
         <Style TargetType="Button">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="Label">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="DataGrid">
-            <!--<Setter Property="Background" Value="#FFFFE6CD"/>
-            <Setter Property="RowBackground" Value="#FFFFE6CD"/>-->
             <Setter Property="AutoGenerateColumns" Value="False"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
 
         <Style TargetType="ComboBoxItem">
@@ -45,6 +44,8 @@
         <Style TargetType="DatePicker">
             <Setter Property="Margin" Value="2"/>
             <Setter Property="Padding" Value="2"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
+        
     </Application.Resources>
 </Application>

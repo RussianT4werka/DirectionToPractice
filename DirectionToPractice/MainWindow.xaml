@@ -13,8 +13,11 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1" Background="#FF2B579A">
             <StackPanel>
-                <Button Margin="3 20 3 3" Content="Список всех групп" Command="{Binding ListGroups}"/>
-                <Button Content="Список всех студентов" Command="{Binding ListStudents}"/>
+                <Button Margin="3 20 3 20" Content="Список групп" Command="{Binding ListGroups}"/>
+                <Button Content="Список студентов" Command="{Binding ListStudents}"/>
+                <Button Height="390" Visibility="Hidden"/>
+                <Button Margin="3 0 3 20" Command="{Binding ToUpdateBDPage}" Content="Обновить БД*"/>
+                <Button Command="{Binding Info}" Content="О приложении*"/>
             </StackPanel>
         </Border>
         <Frame Grid.Column="0" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>

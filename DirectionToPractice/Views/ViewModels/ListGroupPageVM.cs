@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DirectionToPractice.Views.ViewModels
 {
@@ -42,7 +43,15 @@ namespace DirectionToPractice.Views.ViewModels
 
             GetStudents = new Command(() =>
             {
-                mainVM.SetPage(new ListStudentPage(SelectedGroup, mainVM));
+                if(SelectedGroup == null)
+                {
+                    MessageBox.Show("Вы не выбрали группу");
+                    return;
+                }
+                else
+                {
+                    mainVM.SetPage(new ListStudentPage(SelectedGroup, mainVM));
+                }
             });
         }
     }

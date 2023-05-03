@@ -57,7 +57,15 @@ namespace DirectionToPractice.Views.ViewModels
             Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
             ToCreateDirectionPage = new Command(() =>
             {
-                mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
+                if(SelectedStudent == null)
+                {
+                    MessageBox.Show("Вы не выбрали студента");
+                    return;
+                }
+                else
+                {
+                    mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
+                }
             });
         }
 

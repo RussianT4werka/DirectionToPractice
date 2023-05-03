@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Label Content="Поиск"/>
-            <TextBox Width="150" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox MinWidth="250" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <DataGrid LoadingRow="Ai" Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
@@ -25,10 +25,10 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Patronymic}"/>
-                <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Group.Number}"/>
+                <DataGridTextColumn Width="150" Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Width="150" Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>
+                <DataGridTextColumn Width="150" Header="Отчество" IsReadOnly="True" Binding="{Binding Patronymic}"/>
+                <DataGridTextColumn Width="100" Header="Группа" IsReadOnly="True" Binding="{Binding Group.Number}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

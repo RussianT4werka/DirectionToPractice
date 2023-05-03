@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DirectionToPractice.Views.ViewModels
 {
@@ -40,7 +41,15 @@ namespace DirectionToPractice.Views.ViewModels
 
             ToCreateDirectionPage = new Command(() =>
             {
-                mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
+                if (SelectedStudent == null)
+                {
+                    MessageBox.Show("Вы не выбрали студента");
+                    return;
+                }
+                else
+                {
+                    mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
+                }
             });
         }
     }
