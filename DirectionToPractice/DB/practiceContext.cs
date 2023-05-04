@@ -27,14 +27,12 @@ namespace DirectionToPractice.DB
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("Filename=practice.db");
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=practice;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("Cyrillic_General_100_CI_AI_SC_UTF8");
-
             modelBuilder.Entity<Group>(entity =>
             {
                 entity.HasKey(e => e.Number)
@@ -57,6 +55,8 @@ namespace DirectionToPractice.DB
             modelBuilder.Entity<ModulePractice>(entity =>
             {
                 entity.ToTable("ModulePractice");
+
+                entity.HasIndex(e => e.PracticeTypeId, "IX_ModulePractice_PracticeTypeID");
 
                 entity.HasIndex(e => e.SpecialityId, "IX_ModulePractice_SpecialityID");
 
@@ -103,17 +103,48 @@ namespace DirectionToPractice.DB
 
                 entity.HasIndex(e => e.GroupNumber, "IX_Student_GroupID");
 
+                entity.Property(e => e.City).HasMaxLength(50);
+
+                entity.Property(e => e.DateEnd).HasColumnType("date");
+
+                entity.Property(e => e.DateStart).HasColumnType("date");
+
+                entity.Property(e => e.ModulePracticeId).HasColumnName("ModulePracticeID");
+
                 entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Organisation).HasMaxLength(100);
 
                 entity.Property(e => e.Patronymic).HasMaxLength(50);
 
+                entity.Property(e => e.PracticeTypeId).HasColumnName("PracticeTypeID");
+
+                entity.Property(e => e.StreetHouse).HasMaxLength(60);
+
                 entity.Property(e => e.Surname).HasMaxLength(50);
+
+                entity.Property(e => e.TeacherId).HasColumnName("TeacherID");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.GroupNumber)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Student_Group");
+
+                entity.HasOne(d => d.ModulePractice)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.ModulePracticeId)
+                    .HasConstraintName("FK_Student_ModulePractice");
+
+                entity.HasOne(d => d.PracticeType)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.PracticeTypeId)
+                    .HasConstraintName("FK_Student_PracticeType");
+
+                entity.HasOne(d => d.Teacher)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.TeacherId)
+                    .HasConstraintName("FK_Student_Teacher");
             });
 
             modelBuilder.Entity<Teacher>(entity =>
@@ -131,6 +162,7 @@ namespace DirectionToPractice.DB
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
         public static practiceContext GetInstance()
         {
             if (instance == null)

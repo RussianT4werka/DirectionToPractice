@@ -54,18 +54,23 @@ namespace DirectionToPractice.Views.ViewModels
         }
         public ListAllStudentPageVM(MainWindowVM mainVM)
         {
-            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
+            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.Include( s => s.Group).ToList());
             ToCreateDirectionPage = new Command(() =>
             {
-                if(SelectedStudent == null)
+                foreach(var student in Students)
                 {
-                    MessageBox.Show("Вы не выбрали студента");
-                    return;
+                    if (student.Select)
+                    {
+                        if(student.Organisation == null || student.City == null || student.StreetHouse == null)
+                        {
+                            MessageBox.Show("У студента заполнены не все поля");
+                            return;
+                        }
+                        practiceContext.GetInstance().SaveChanges();
+                        Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.Include(s => s.Group).ToList());
+                    }
                 }
-                else
-                {
-                    mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
-                }
+                //mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
             });
         }
 

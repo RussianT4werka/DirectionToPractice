@@ -7,10 +7,17 @@ namespace DirectionToPractice.DB.Models
 {
     public partial class Teacher
     {
+        public Teacher()
+        {
+            Students = new HashSet<Student>();
+        }
+
         public int Id { get; set; }
         public string Surname { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Patronymic { get; set; } = null!;
+
+        public virtual ICollection<Student> Students { get; set; }
 
         [NotMapped]
         public string FIO { get => Surname + " " + Name.First() + "." + Patronymic.First() + "."; }

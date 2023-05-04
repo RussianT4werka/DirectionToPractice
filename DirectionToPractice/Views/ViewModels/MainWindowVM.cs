@@ -14,8 +14,8 @@ namespace DirectionToPractice.Views.ViewModels
     {
         private Stack<Page> pages = new();
         private Page currentPage;
-        public Command ListGroups { get; set; }
-        public Command ListStudents { get; set; }
+        public Command ListAllCreatedDirection { get; set; }
+        public Command ListAllStudents { get; set; }
         public Command Info { get; set; }
         public Page CurrentPage 
         { 
@@ -29,14 +29,14 @@ namespace DirectionToPractice.Views.ViewModels
 
         public MainWindowVM()
         {
-            SetPage(new ListGroupPage(this));
+            SetPage(new ListCreatedDirectionPage(this));
 
-            ListGroups = new Command(() =>
+            ListAllCreatedDirection = new Command(() =>
             {
-                SetPage(new ListGroupPage(this));
+                SetPage(new ListCreatedDirectionPage(this));
             });
 
-            ListStudents = new Command(() =>
+            ListAllStudents = new Command(() =>
             {
                 SetPage(new ListAllStudentPage(this));
             });
