@@ -23,6 +23,7 @@ namespace DirectionToPractice.Views.ViewModels
         private string search;
         private ObservableCollection<Student> students;
         private Practice practice;
+        private Speciality speciality;
 
         public Command CreateDirections { get; set; }
         public ObservableCollection<Student> Students
@@ -56,12 +57,23 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
+        public Speciality Speciality 
+        { 
+            get => speciality;
+            set
+            {
+                speciality = value;
+                SignalChanged();
+            }
+        }
+
         public List<StudentPractice> StudentPractices { get; set; }
 
-        public ListAllStudentPageVM(Practice practice, MainWindowVM mainVM)
+        public ListAllStudentPageVM(Practice practice, MainWindowVM mainVM, Speciality? selectedSpeciality)
         {
+            this.Speciality = selectedSpeciality;
             Practice = practice;
-            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.Include(s => s.Group).ToList());
+            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.Include(s => s.Group).ThenInclude(s => s.Speciality).Where(s => s.Group.SpecialityId == Speciality.Id).ToList());
             CreateDirections = new Command(() =>
             {
                 if (Practice.Id != 0)
@@ -83,15 +95,6 @@ namespace DirectionToPractice.Views.ViewModels
                 practiceContext.GetInstance().SaveChanges();
                 mainVM.SetPage(new ListCreatedDirectionPage(mainVM));
             });
-        }
-
-        private void DoSearch()
-        {
-            IQueryable<Student> searchRequest = practiceContext.GetInstance().Students;
-
-            if (!string.IsNullOrEmpty(Search))
-                searchRequest = searchRequest.Where(s => s.Surname.Contains(Search) || s.Name.Contains(Search) || s.Patronymic.Contains(Search) || s.GroupNumber.ToString().Contains(Search));
-            Students = new ObservableCollection<Student>(searchRequest);
         }
 
         private void GetDirections(Student student, Practice practice)
@@ -203,7 +206,16 @@ namespace DirectionToPractice.Views.ViewModels
             {
                 MessageBox.Show("Закройте предыдущий файл");
             }
-            
+
+        }
+
+        private void DoSearch()
+        {
+            IQueryable<Student> searchRequest = practiceContext.GetInstance().Students;
+
+            if (!string.IsNullOrEmpty(Search))
+                searchRequest = searchRequest.Where(s => s.Surname.Contains(Search) || s.Name.Contains(Search) || s.Patronymic.Contains(Search) || s.GroupNumber.ToString().Contains(Search));
+            Students = new ObservableCollection<Student>(searchRequest);
         }
     }
 }

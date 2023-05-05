@@ -9,14 +9,14 @@
       Title="ListStudentPage">
 
     <Grid>
-        <DataGrid LoadingRow="Ai" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+        <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedItem="{Binding SelectedStudent}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
-                <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Patronymic}"/>
-                <DataGridTextColumn Header="Организация" Binding="{Binding Organisation}"/>
-                <DataGridTextColumn Header="Населённый пункт" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Улица и дом" Binding="{Binding StreetHouse}"/>
+                <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Student.Surname}"/>
+                <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Student.Name}"/>
+                <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Student.Patronymic}"/>
+                <DataGridTextColumn Header="Организация" Binding="{Binding Practice.Organisation}"/>
+                <DataGridTextColumn Header="Населённый пункт" Binding="{Binding Practice.City}"/>
+                <DataGridTextColumn Header="Улица и дом" Binding="{Binding Practice.StreetHouse}"/>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

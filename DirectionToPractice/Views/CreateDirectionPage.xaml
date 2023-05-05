@@ -13,6 +13,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -25,22 +26,22 @@
         <StackPanel Margin="10 0 10 0" VerticalAlignment="Bottom">
             <Label Content="Вид практики"/>
             <ComboBox ItemsSource="{Binding PracticeTypes}"
-                              DisplayMemberPath="Name"
-                              SelectedItem="{Binding SelectedPracticeType}"/>
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedPracticeType}"/>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Row="1" VerticalAlignment="Center">
-            <Label Content="Модуля практики"/>
-            <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
-                      DisplayMemberPath="Number"
-                      SelectedItem="{Binding SelectedModulePractice}"/>
+            <Label Content="Специальность"/>
+            <ComboBox ItemsSource="{Binding Specialitys}"
+                      DisplayMemberPath="FullName"
+                      SelectedItem="{Binding SelectedSpeciality}"/>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Row="2" VerticalAlignment="Top">
-            <Label Content="Руководитель практики"/>
-            <ComboBox ItemsSource="{Binding Teachers}"
-                      DisplayMemberPath="SNP"
-                      SelectedItem="{Binding SelectedTeacher}"/>
+            <Label Content="Модуль практики"/>
+            <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
+                      DisplayMemberPath="FullName"
+                      SelectedItem="{Binding SelectedModulePractice}"/>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Column="1" VerticalAlignment="Bottom">
@@ -73,7 +74,14 @@
             <TextBox Text="{Binding StreetHouse}"/>
         </StackPanel>
 
-        <Border Grid.Row="3"  Grid.ColumnSpan="3" Background="#FF295496">
+        <StackPanel Margin="10 0 10 0" VerticalAlignment="Top" Grid.Row="3">
+            <Label Content="Руководитель практики"/>
+            <ComboBox ItemsSource="{Binding Teachers}"
+                      DisplayMemberPath="SNP"
+                      SelectedItem="{Binding SelectedTeacher}"/>
+        </StackPanel>
+
+        <Border Grid.Row="4"  Grid.ColumnSpan="3" Background="#FF295496">
             <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20"  VerticalAlignment="Bottom" Content="Выбрать студентов" Command="{Binding CreateDirection}"/>
         </Border>
         

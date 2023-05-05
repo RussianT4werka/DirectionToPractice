@@ -19,7 +19,7 @@
             <TextBox MinWidth="250" Text="{Binding Search,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <DataGrid LoadingRow="Ai" Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent}">
+        <DataGrid LoadingRow="Ai" Grid.Row="1" ItemsSource="{Binding Students}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="150" Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
                 <DataGridTextColumn Width="150" Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>

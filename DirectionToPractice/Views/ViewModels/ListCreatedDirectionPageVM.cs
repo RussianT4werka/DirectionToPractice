@@ -1,6 +1,7 @@
 ﻿using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,14 +14,14 @@ namespace DirectionToPractice.Views.ViewModels
 {
     public class ListCreatedDirectionPageVM: BaseVM
     {
-        private ObservableCollection<Student> students;
+        private ObservableCollection<StudentPractice> studentPractices;
         private Student selectedStudent;
-        public ObservableCollection<Student> Students
+        public ObservableCollection<StudentPractice> StudentPractices
         {
-            get => students;
+            get => studentPractices;
             set
             {
-                students = value;
+                studentPractices = value;
                 SignalChanged();
             }
         }
@@ -37,7 +38,7 @@ namespace DirectionToPractice.Views.ViewModels
         public Command ToCreateDirectionPage { get; set; }
         public ListCreatedDirectionPageVM(MainWindowVM mainVM)
         {
-            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
+            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include( s => s.Student).Include(s => s.Practice).ToList());
 
             ToCreateDirectionPage = new Command(() =>
             {

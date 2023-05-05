@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DirectionToPractice.DB.Models
 {
@@ -19,5 +20,8 @@ namespace DirectionToPractice.DB.Models
         public virtual PracticeType PracticeType { get; set; } = null!;
         public virtual Speciality Speciality { get; set; } = null!;
         public virtual ICollection<Practice> Practices { get; set; }
+
+        [NotMapped]
+        public string FullName { get => Number + " " + Text; }
     }
 }
