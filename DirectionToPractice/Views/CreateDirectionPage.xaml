@@ -22,17 +22,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Margin="0 35 0 0" HorizontalAlignment="Center" Grid.ColumnSpan="3">
-            <Label Margin="3 3 3 0" FontSize="25" FontWeight="Bold" Content="{Binding SelectedStudent.FIO}"/>
-            <StackPanel Margin="3 0 3 3" HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Margin="3 0 3 3" Content="Студент группы"/>
-                <Label Margin="3 0 3 3" Content="{Binding SelectedStudent.Group.Number}"/>
-                <Label Margin="3 0 3 3" Content="курс"/>
-                <Label Margin="3 0 3 3" Content="{Binding SelectedStudent.Group.Course}"/>
-            </StackPanel>
-            
-        </StackPanel>
-
         <StackPanel Margin="10 0 10 0" VerticalAlignment="Bottom">
             <Label Content="Вид практики"/>
             <ComboBox ItemsSource="{Binding PracticeTypes}"
@@ -76,12 +65,7 @@
 
         <StackPanel Margin="10 0 10 0" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center">
             <Label Content="Населённый пункт"/>
-            <ComboBox SelectedValue="{Binding City}">
-                <system:String>г.Владивосток</system:String>
-                <system:String>г.Артём</system:String>
-                <system:String>г.Уссурийск</system:String>
-                <system:String>г.Находка</system:String>
-            </ComboBox>
+            <TextBox Text="{Binding City}"/>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top">
@@ -90,7 +74,7 @@
         </StackPanel>
 
         <Border Grid.Row="3"  Grid.ColumnSpan="3" Background="#FF295496">
-            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20"  VerticalAlignment="Bottom" Content="Выдать направление" Command="{Binding CreateDirection}"/>
+            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20"  VerticalAlignment="Bottom" Content="Выбрать студентов" Command="{Binding CreateDirection}"/>
         </Border>
         
     </Grid>

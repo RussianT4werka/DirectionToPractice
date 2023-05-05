@@ -48,7 +48,7 @@ namespace DirectionToPractice.Views.ViewModels
                 }
                 else
                 {
-                    mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
+                    //mainVM.SetPage(new CreateDirectionPage(SelectedStudent, mainVM));
                 }
             });
         }

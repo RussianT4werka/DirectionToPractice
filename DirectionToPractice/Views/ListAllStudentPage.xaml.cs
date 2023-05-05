@@ -21,10 +21,10 @@ namespace DirectionToPractice.Views
     /// </summary>
     public partial class ListAllStudentPage : Page
     {
-        public ListAllStudentPage(MainWindowVM mainVM)
+        public ListAllStudentPage(DB.Models.Practice practice)
         {
             InitializeComponent();
-            DataContext = new ListAllStudentPageVM(mainVM);
+            DataContext = new ListAllStudentPageVM(practice);
         }
         private void Ai(object sender, DataGridRowEventArgs e)
         {

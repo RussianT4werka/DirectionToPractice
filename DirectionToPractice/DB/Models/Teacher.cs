@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace DirectionToPractice.DB.Models
 {
@@ -9,7 +7,7 @@ namespace DirectionToPractice.DB.Models
     {
         public Teacher()
         {
-            Students = new HashSet<Student>();
+            Practices = new HashSet<Practice>();
         }
 
         public int Id { get; set; }
@@ -17,12 +15,6 @@ namespace DirectionToPractice.DB.Models
         public string Name { get; set; } = null!;
         public string Patronymic { get; set; } = null!;
 
-        public virtual ICollection<Student> Students { get; set; }
-
-        [NotMapped]
-        public string FIO { get => Surname + " " + Name.First() + "." + Patronymic.First() + "."; }
-
-        [NotMapped]
-        public string SNP { get => Surname + " " + Name + " " + Patronymic; }
+        public virtual ICollection<Practice> Practices { get; set; }
     }
 }

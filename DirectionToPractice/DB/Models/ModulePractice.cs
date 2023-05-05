@@ -7,7 +7,7 @@ namespace DirectionToPractice.DB.Models
     {
         public ModulePractice()
         {
-            Students = new HashSet<Student>();
+            Practices = new HashSet<Practice>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace DirectionToPractice.DB.Models
 
         public virtual PracticeType PracticeType { get; set; } = null!;
         public virtual Speciality Speciality { get; set; } = null!;
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Practice> Practices { get; set; }
     }
 }

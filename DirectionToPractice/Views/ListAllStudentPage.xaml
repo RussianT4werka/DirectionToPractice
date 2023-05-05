@@ -25,12 +25,9 @@
                 <DataGridTextColumn Width="150" Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="150" Header="Отчество" IsReadOnly="True" Binding="{Binding Patronymic}"/>
                 <DataGridTextColumn Width="100" Header="Группа" IsReadOnly="True" Binding="{Binding Group.Number}"/>
-                <DataGridTextColumn Header="Организация" Binding="{Binding Organisation}"/>
-                <DataGridTextColumn Header="Населённый пункт" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Улица и дом" Binding="{Binding StreetHouse}"/>
                 <DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding Select}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" Command="{Binding ToCreateDirectionPage}" Content="Ввести общие параментры для выбранных студентов"/>
+        <Button Grid.Row="2" Command="{Binding CreateDirections}" Content="Выдать направления"/>
     </Grid>
 </Page>

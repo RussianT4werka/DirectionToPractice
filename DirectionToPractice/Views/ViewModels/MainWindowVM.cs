@@ -15,7 +15,7 @@ namespace DirectionToPractice.Views.ViewModels
         private Stack<Page> pages = new();
         private Page currentPage;
         public Command ListAllCreatedDirection { get; set; }
-        public Command ListAllStudents { get; set; }
+        public Command CreateDirection { get; set; }
         public Command Info { get; set; }
         public Page CurrentPage 
         { 
@@ -29,25 +29,21 @@ namespace DirectionToPractice.Views.ViewModels
 
         public MainWindowVM()
         {
-            SetPage(new ListCreatedDirectionPage(this));
+            SetPage(new CreateDirectionPage(this));
+
+            CreateDirection = new Command(() =>
+            {
+                SetPage(new CreateDirectionPage(this));
+            });
 
             ListAllCreatedDirection = new Command(() =>
             {
                 SetPage(new ListCreatedDirectionPage(this));
             });
 
-            ListAllStudents = new Command(() =>
-            {
-                SetPage(new ListAllStudentPage(this));
-            });
             Info = new Command(() =>
             {
-                MessageBox.Show("Приложение создано с целью облегчить бумажную волокиту, а именно, ускорить процесс заполнения направления на практику " +
-                "По кнопке \"Список групп\" вы перейдёте на их список, где можете выбрать нужную вам группу(правая кнопка мыши). После выбора группы " +
-                "открывается список студентов состоящих в этой группе. Чтобы создать направление на нужного студента, его нужно выбрать из списка студентов. " +
-                "На странице создания направления необходимо указать все поля. После заполнения нужно нажать на кнопку \"Выдать направление\". После этого " +
-                "откроется готовый документ Word, который рекомендуется проверить на ошибки(программа не идеальна, поэтому в некоторых местах нужно будет добавить " +
-                "некоторое кол-во нижник прочерков. Также некоторые имена неправильно склоняются, но таких немного (Дмитрий)");
+                MessageBox.Show("");
             });
         }
 

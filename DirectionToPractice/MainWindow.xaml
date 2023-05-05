@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1" Background="#FF2B579A">
             <StackPanel>
-                <Button Margin="3 20 3 20" Content="Составить направления" Command="{Binding ListAllStudents}"/>
+                <Button Margin="3 20 3 20" Content="Составить направления" Command="{Binding CreateDirection}"/>
                 <Button Content="Список направлений*" Command="{Binding ListAllCreatedDirection}"/>
                 <Button Height="390" Visibility="Hidden"/>
                 <Button Margin="3 0 3 20" Command="{Binding ToUpdateBDPage}" Content="Обновить БД*"/>
