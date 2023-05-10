@@ -13,7 +13,7 @@ namespace DirectionToPractice.DB.Models
 
         public int Id { get; set; }
         public string Number { get; set; } = null!;
-        public string Text { get; set; } = null!;
+        public string Text { get; set; } = null!; //ы
         public int SpecialityId { get; set; }
         public int PracticeTypeId { get; set; }
 
