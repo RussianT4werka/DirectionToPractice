@@ -16,6 +16,7 @@ namespace DirectionToPractice.Views.ViewModels
         private Page currentPage;
         public Command ListAllCreatedDirection { get; set; }
         public Command CreateDirection { get; set; }
+        public Command ToUpdateBDPage { get; set; }
         public Command Info { get; set; }
         public Page CurrentPage 
         { 
@@ -39,6 +40,11 @@ namespace DirectionToPractice.Views.ViewModels
             ListAllCreatedDirection = new Command(() =>
             {
                 SetPage(new ListCreatedDirectionPage(this));
+            });
+
+            ToUpdateBDPage = new Command(() =>
+            {
+                SetPage(new UpdateBDPage());
             });
 
             Info = new Command(() =>

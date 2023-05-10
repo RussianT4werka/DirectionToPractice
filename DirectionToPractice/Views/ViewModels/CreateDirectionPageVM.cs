@@ -1,5 +1,4 @@
-﻿using Cyriller;
-using DirectionToPractice.DB;
+﻿using DirectionToPractice.DB;
 using DirectionToPractice.DB.Models;
 using DirectionToPractice.Tools;
 using System;
@@ -11,8 +10,6 @@ namespace DirectionToPractice.Views.ViewModels
 {
     public class CreateDirectionPageVM : BaseVM
     {
-        private static CyrName cyrName = new CyrName();
-        private static CyrNumber cyrNumber = new CyrNumber();
         private bool block = true;
         private PracticeType selectedPracticeType;
         private List<ModulePractice> modulePractices;

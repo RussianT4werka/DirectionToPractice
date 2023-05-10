@@ -107,13 +107,9 @@ namespace DirectionToPractice.Views.ViewModels
             //Выбираем 5 абзац(Таблица в счёт не идёт)
             Paragraph paraFIO = section.Paragraphs[5];
 
-            CyrResult resultSurname = cyrName.Decline($"{student.Surname}");
-            CyrResult resultName = cyrName.Decline($"{student.Name}");
-            CyrResult resultPatronymic = cyrName.Decline($"{student.Patronymic}");
+            CyrResult resultFIO = cyrName.Decline($"{student.Surname}", $"{student.Name}", $"{student.Patronymic}");
 
-            paraFIO.Replace("Лукошкина", $"{resultSurname.Accusative}", false, true);
-            paraFIO.Replace("Анатолия", $"{resultName.Accusative}", false, true);
-            paraFIO.Replace("Алексеевича", $"{resultPatronymic.Accusative}", false, true);
+            paraFIO.Replace("Лукошкина_______Анатолия___________Алексеевича", $"{resultFIO.Родительный}", false, true);
 
             //Выбираем 7 абзац
             Paragraph paraCCS = section.Paragraphs[7];
