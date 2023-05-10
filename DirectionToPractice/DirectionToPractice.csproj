@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>LogoDirectionToPractice.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,10 @@
     <EmbeddedResource Remove="Documents\**" />
     <None Remove="Documents\**" />
     <Page Remove="Documents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="LogoDirectionToPractice.ico" />
   </ItemGroup>
 
   <ItemGroup>
