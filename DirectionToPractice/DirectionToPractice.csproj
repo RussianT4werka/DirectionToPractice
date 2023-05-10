@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\897770.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="LogoDirectionToPractice.ico" />
   </ItemGroup>
 
@@ -27,6 +31,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Miyconst.Cyriller" Version="0.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\897770.png" />
   </ItemGroup>
 
   <ItemGroup>

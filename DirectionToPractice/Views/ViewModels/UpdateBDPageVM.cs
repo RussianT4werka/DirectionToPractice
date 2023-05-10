@@ -20,10 +20,12 @@ namespace DirectionToPractice.Views.ViewModels
     {
         public Command UploadListStudent { get; set; }
         public Command DeleteListStudent { get; set; }
+        public List<StudentPractice> StudentPractices { get; set; }
         public List<Student> Students { get; set; }
+        public List<Practice> Practices { get; set; }
+        public Student Student { get; set; }
         public UpdateBDPageVM()
         {
-            Students = new List<Student>(practiceContext.GetInstance().Students.ToList());
             UploadListStudent = new Command(() =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -40,22 +42,53 @@ namespace DirectionToPractice.Views.ViewModels
                     {
                         foreach (Paragraph paragraph in section.Paragraphs)
                         {
-                            var surname = paragraph.Text.Split(' ')[0];
-                            var name = paragraph.Text.Split(' ')[1];
-                            var patronymic = paragraph.Text.Split(' ')[2];
-                            var groupNumber = paragraph.Text.Split(' ')[3];
-                            Students.Add(new Student { Surname = surname, Name = name, Patronymic = patronymic, GroupNumber = int.Parse(groupNumber)});
+                            try
+                            {
+                                var surname = paragraph.Text.Split(' ')[0];
+                                var name = paragraph.Text.Split(' ')[1];
+                                var patronymic = paragraph.Text.Split(' ')[2];
+                                var groupNumber = paragraph.Text.Split(' ')[3];
+                                Student = new Student { Surname = surname, Name = name, Patronymic = patronymic, GroupNumber = int.Parse(groupNumber) };
+                                practiceContext.GetInstance().Students.AddRange(Student);
+                                practiceContext.GetInstance().SaveChanges();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Что-то пошло не так. Возможно неподходящий формат документа.");
+                                return;
+                            }
+                            
                         }
                     }
-
-                    practiceContext.GetInstance().Students.AddRange(Students);
-                    practiceContext.GetInstance().SaveChanges();
+                    MessageBox.Show("Студенты из списка успешно добавлены");
                 }
             });
 
             DeleteListStudent = new Command(() =>
             {
+                StudentPractices = new List<StudentPractice>(practiceContext.GetInstance().StudentPractices.ToList());
+                Students = new List<Student>(practiceContext.GetInstance().Students.ToList());
+                Practices = new List<Practice>(practiceContext.GetInstance().Practices.ToList());
+                try
+                {
+                    practiceContext.GetInstance().StudentPractices.RemoveRange(StudentPractices);
+                    practiceContext.GetInstance().SaveChanges();
 
+                    practiceContext.GetInstance().Students.RemoveRange(Students);
+                    practiceContext.GetInstance().SaveChanges();
+
+                    practiceContext.GetInstance().RemoveRange(Practices);
+                    practiceContext.GetInstance().SaveChanges();
+
+                    MessageBox.Show("Все студенты успешно удалены");
+                    return;
+                }
+                catch
+                {
+                    MessageBox.Show("Что-то пошло не так");
+                    return;
+                }
+                
             });
         }
     }
