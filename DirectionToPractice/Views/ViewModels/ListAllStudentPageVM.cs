@@ -119,11 +119,11 @@ namespace DirectionToPractice.Views.ViewModels
 
             //Выбираем 8 абзац
             Paragraph paraSP = section.Paragraphs[8];
-            paraSP.Replace("производственной", $"{practice.PracticeType.Name}", false, true);
+            paraSP.Replace("производственной", $"{practice.PracticeType}", false, true);
 
             //Выбираем 10 абзац
             Paragraph paraMDDC = section.Paragraphs[10];
-            if (practice.PracticeType.Id == 3)
+            if (practice.PracticeType == "преддипломной")
             {
                 paraMDDC.Replace("ПП.04 «Выполнение работ по профессии «Наладчик технологического оборудования»» ", "", false, true);
                 Paragraph paraH = section.Paragraphs[10];
@@ -134,17 +134,7 @@ namespace DirectionToPractice.Views.ViewModels
             }
             else
             {
-                switch (practice.PracticeType.Id)
-                {
-                    case 1:
-                        paraMDDC.Replace("ПП", "УП", false, true);
-                        break;
-                    case 2:
-                        paraMDDC.Replace("ПП", "ПП", false, true);
-                        break;
-                }
-                paraMDDC.Replace("04", $"{practice.ModulePractice.Number}", false, true);
-                paraMDDC.Replace("Выполнение работ по профессии «Наладчик технологического оборудования»", $"{practice.ModulePractice.Text}", false, true);
+                paraMDDC.Replace("ПП.04 «Выполнение работ по профессии «Наладчик технологического оборудования»»", $"{practice.ModulePractice}", false, true);
                 paraMDDC.Replace("01.05.2023", $"{practice.DateStart.Value.Date.ToString("d")}", false, true);
                 paraMDDC.Replace("17.06.2023", $"{practice.DateEnd.Value.Date.ToString("d")}", false, true);
 

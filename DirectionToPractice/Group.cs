@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DirectionToPractice.DB.Models;
+using System;
 using System.Collections.Generic;
 
-namespace DirectionToPractice.DB.Models
+namespace DirectionToPractice
 {
     public partial class Group
     {

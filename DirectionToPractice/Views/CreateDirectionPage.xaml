@@ -25,9 +25,11 @@
 
         <StackPanel Margin="10 0 10 0" VerticalAlignment="Bottom">
             <Label Content="Вид практики"/>
-            <ComboBox ItemsSource="{Binding PracticeTypes}"
-                      DisplayMemberPath="Name"
-                      SelectedItem="{Binding SelectedPracticeType}"/>
+            <ComboBox SelectedValue="{Binding SelectedPracticeType}">
+                <system:String>учебной</system:String>
+                <system:String>производственной</system:String>
+                <system:String>преддипломной</system:String>
+            </ComboBox>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Row="1" VerticalAlignment="Center">
@@ -38,10 +40,8 @@
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Row="2" VerticalAlignment="Top">
-            <Label Content="Модуль практики"/>
-            <ComboBox ItemsSource="{Binding ModulePractices}" IsEnabled="{Binding Block}"
-                      DisplayMemberPath="FullName"
-                      SelectedItem="{Binding SelectedModulePractice}"/>
+            <Label Content="Модуль практики с названием"/>
+            <TextBox Text="{Binding ModulePractice}"/>
         </StackPanel>
 
         <StackPanel Margin="10 0 10 0" Grid.Column="1" VerticalAlignment="Bottom">

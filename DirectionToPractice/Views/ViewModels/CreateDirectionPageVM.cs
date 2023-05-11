@@ -11,8 +11,7 @@ namespace DirectionToPractice.Views.ViewModels
     public class CreateDirectionPageVM : BaseVM
     {
         private bool block = true;
-        private PracticeType selectedPracticeType;
-        private List<ModulePractice> modulePractices;
+        private string selectedPracticeType;
         private Practice practice;
         private Speciality selectedSpeciality;
 
@@ -27,29 +26,17 @@ namespace DirectionToPractice.Views.ViewModels
                 SignalChanged();
             }
         }
-
-        public List<PracticeType> PracticeTypes { get; set; }
-        public PracticeType SelectedPracticeType
-        {
+        
+        public string SelectedPracticeType 
+        { 
             get => selectedPracticeType;
             set
             {
                 selectedPracticeType = value;
-                Filter();
                 SignalChanged();
             }
         }
-
-        public List<ModulePractice> ModulePractices
-        {
-            get => modulePractices;
-            set
-            {
-                modulePractices = value;
-                SignalChanged();
-            }
-        }
-        public ModulePractice SelectedModulePractice { get; set; }
+        public string ModulePractice { get; set; }
 
         public List<Teacher> Teachers { get; set; }
         public Teacher SelectedTeacher { get; set; }
@@ -74,13 +61,12 @@ namespace DirectionToPractice.Views.ViewModels
 
         public List<Speciality> Specialitys { get; set; }
 
-        public Speciality SelectedSpeciality 
-        { 
+        public Speciality SelectedSpeciality
+        {
             get => selectedSpeciality;
             set
             {
                 selectedSpeciality = value;
-                Filter();
                 SignalChanged();
             }
         }
@@ -88,17 +74,15 @@ namespace DirectionToPractice.Views.ViewModels
         public Command CreateDirection { get; set; }
         public CreateDirectionPageVM(MainWindowVM mainVM)
         {
-            Filter();
             Specialitys = new List<Speciality>(practiceContext.GetInstance().Specialities.ToList());
-            PracticeTypes = new List<PracticeType>(practiceContext.GetInstance().PracticeTypes.ToList());
             Teachers = new List<Teacher>(practiceContext.GetInstance().Teachers.ToList());
             CreateDirection = new Command(() =>
             {
-                if (SelectedPracticeType != null || SelectedSpeciality != null || SelectedTeacher != null || CountHours != 0 ) // Какие-то ебанутые условия
+                if (SelectedPracticeType != null || SelectedSpeciality != null || SelectedTeacher != null || CountHours != 0) // Какие-то ебанутые условия
                 {
-                    if(DateStart.Date >= DateTime.Now || DateEnd.Date >= DateStart) //Тут вообще неясно почему их C# и в хуй не ставит...
+                    if (DateStart.Date >= DateTime.Now || DateEnd.Date >= DateStart) //Тут вообще неясно почему их C# и в хуй не ставит...
                     {
-                        Practice = new Practice() { Organisation = SpeciesOrganisation, City = City, StreetHouse = StreetHouse, PracticeTypeId = SelectedPracticeType.Id, ModulePracticeId = SelectedModulePractice?.Id, TeacherId = SelectedTeacher.Id, DateStart = DateStart, DateEnd = DateEnd, CountHours = CountHours };
+                        Practice = new Practice() { Organisation = SpeciesOrganisation, City = City, StreetHouse = StreetHouse, PracticeType = SelectedPracticeType, ModulePractice = ModulePractice, TeacherId = SelectedTeacher.Id, DateStart = DateStart, DateEnd = DateEnd, CountHours = CountHours };
                         mainVM.SetPage(new ListAllStudentPage(Practice, mainVM, SelectedSpeciality));
                     }
                     else
@@ -114,15 +98,6 @@ namespace DirectionToPractice.Views.ViewModels
                 }
 
             });
-        }
-        private void Filter()
-        {
-            IQueryable<ModulePractice> modulePractices = practiceContext.GetInstance().ModulePractices;
-            if (SelectedPracticeType != null)
-                modulePractices = modulePractices.Where(s => s.PracticeTypeId == SelectedPracticeType.Id);
-            if (SelectedSpeciality != null)
-                modulePractices = modulePractices.Where(s => s.SpecialityId == SelectedSpeciality.Id);
-            ModulePractices = modulePractices.ToList();
         }
     }
 }
