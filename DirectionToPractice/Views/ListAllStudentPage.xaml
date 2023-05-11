@@ -28,6 +28,8 @@
                 <DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding Select}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" Command="{Binding CreateDirections}" Content="Выдать направления"/>
+        <Border Grid.Row="2" Background="#FF295496">
+            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20" Command="{Binding CreateDirections}" Content="Выдать направления"/>
+        </Border>
     </Grid>
 </Page>

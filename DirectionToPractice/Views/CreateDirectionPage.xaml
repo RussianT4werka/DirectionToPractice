@@ -82,7 +82,7 @@
         </StackPanel>
 
         <Border Grid.Row="4"  Grid.ColumnSpan="3" Background="#FF295496">
-            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20"  VerticalAlignment="Bottom" Content="Выбрать студентов" Command="{Binding CreateDirection}"/>
+            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20" Content="Выбрать студентов" Command="{Binding CreateDirection}"/>
         </Border>
         
     </Grid>

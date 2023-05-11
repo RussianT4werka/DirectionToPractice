@@ -7,19 +7,25 @@
         mc:Ignorable="d"
         Title="Направление на практику" WindowStartupLocation="CenterScreen" MinHeight="650" MinWidth="1450">
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="1" Background="#FF2B579A">
-            <StackPanel>
-                <Button Margin="3 20 3 20" Content="Составить направления" Command="{Binding CreateDirection}"/>
-                <Button Content="Список направлений*" Command="{Binding ListAllCreatedDirection}"/>
-                <Button Height="390" Visibility="Hidden"/>
-                <Button Margin="3 0 3 20" Command="{Binding ToUpdateBDPage}" Content="Обновить БД"/>
-                <Button Command="{Binding Info}" Content="О приложении*"/>
-            </StackPanel>
-        </Border>
+        
+        
+        <Grid Grid.Column="1" Background="#FF2B579A">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Margin="0" Content="Составить направления" Command="{Binding CreateDirection}"/>
+            <Button Grid.Row="1" Margin="0" Content="Список направлений*" Command="{Binding ListAllCreatedDirection}"/>
+            <Button Grid.Row="2" Margin="0" Command="{Binding ToUpdateBDPage}" Content="Обновить БД"/>
+            <Button Grid.Row="3" Margin="0" Command="{Binding Info}" Content="О приложении*"/>
+        </Grid>
         <Frame Grid.Column="0" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>
