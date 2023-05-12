@@ -35,11 +35,15 @@ namespace DirectionToPractice.Views.ViewModels
                 SignalChanged();
             }
         }
+        public List<string> PracticeTypes { get; set; }
+        public string SelectedPracticeType { get; set; }
+
         public Command ToCreateDirectionPage { get; set; }
         public ListCreatedDirectionPageVM(MainWindowVM mainVM)
         {
-            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include( s => s.Student).Include(s => s.Practice).ToList());
-
+            SelectedPracticeType = "производственной";
+            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include( s => s.Student).ThenInclude( s => s.Group).Include(s => s.Practice).ToList());
+            PracticeTypes = new List<string> { "учебной", "производственной", "преддипломной" };
             ToCreateDirectionPage = new Command(() =>
             {
                 if (SelectedStudent == null)

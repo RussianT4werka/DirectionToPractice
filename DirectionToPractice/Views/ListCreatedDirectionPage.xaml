@@ -45,11 +45,15 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <CollectionViewSource x:Key="practiceTypes" Source="{Binding PracticeTypes}"/>
     </Page.Resources>
 
     <Grid>
         <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedItem="{Binding SelectedStudent}">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Student.Group.Number}"/>
+                <DataGridComboBoxColumn Header="Тип практики" ItemsSource="{Binding Source={StaticResource practiceTypes}}"
+                                                SelectedValueBinding="{Binding SelectedPracticeType}"/>
                 <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Student.Surname}"/>
                 <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Student.Name}"/>
                 <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Student.Patronymic}"/>
@@ -59,7 +63,7 @@
                 <DataGridTemplateColumn CellStyle="{DynamicResource DataGridTemplateColumnCellStyle1}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Открыть направление" Command="{Binding OpenDirection}"/>
+                            <Button Content="Открыть" Command="{Binding OpenDirection}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
