@@ -46,24 +46,47 @@
             </Style.Triggers>
         </Style>
         <CollectionViewSource x:Key="practiceTypes" Source="{Binding PracticeTypes}"/>
+        <CollectionViewSource x:Key="teacher" Source="{Binding Teachers}"/>
     </Page.Resources>
 
     <Grid>
-        <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedItem="{Binding SelectedStudent}">
+        <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedValue="{Binding SelectedStudentPractice}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Student.Group.Number}"/>
-                <DataGridComboBoxColumn Header="Тип практики" ItemsSource="{Binding Source={StaticResource practiceTypes}}"
-                                                SelectedValueBinding="{Binding SelectedPracticeType}"/>
+                <DataGridTextColumn Header="Код спец." IsReadOnly="True" Binding="{Binding Student.Group.Speciality.Code}"/>
                 <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Student.Surname}"/>
                 <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Student.Name}"/>
                 <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Student.Patronymic}"/>
-                <DataGridTextColumn Header="Организация" Binding="{Binding Practice.Organisation}"/>
-                <DataGridTextColumn Header="Населённый пункт" Binding="{Binding Practice.City}"/>
-                <DataGridTextColumn Header="Улица и дом" Binding="{Binding Practice.StreetHouse}"/>
+
+                <DataGridTextColumn Header="Тип практики" IsReadOnly="True" Binding="{Binding Practice.PracticeType}"/>
+
+                <DataGridTextColumn IsReadOnly="True" Header="Модуль" Binding="{Binding Practice.ModulePractice}"/>
+
+                <DataGridTextColumn IsReadOnly="True" Header="Руководитель" Binding="{Binding Practice.Teacher.FIO}"/>
+
+                <DataGridTemplateColumn Header="Начало"  CellStyle="{DynamicResource DataGridTemplateColumnCellStyle1}" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Practice.DateStart}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="Конец"  CellStyle="{DynamicResource DataGridTemplateColumnCellStyle1}" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Practice.DateEnd}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Кол-во часов" Binding="{Binding Practice.CountHours}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Организация" Binding="{Binding Practice.Organisation}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Населённый пункт" Binding="{Binding Practice.City}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Улица и дом" Binding="{Binding Practice.StreetHouse}" IsReadOnly="True"/>
                 <DataGridTemplateColumn CellStyle="{DynamicResource DataGridTemplateColumnCellStyle1}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Открыть" Command="{Binding OpenDirection}"/>
+                            <Button Content="Открыть" Click="OpenDocument"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

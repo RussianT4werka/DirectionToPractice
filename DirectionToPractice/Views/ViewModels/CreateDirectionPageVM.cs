@@ -78,23 +78,23 @@ namespace DirectionToPractice.Views.ViewModels
             Teachers = new List<Teacher>(practiceContext.GetInstance().Teachers.ToList());
             CreateDirection = new Command(() =>
             {
-                if (SelectedPracticeType != null || SelectedSpeciality != null || SelectedTeacher != null || CountHours != 0) // Какие-то ебанутые условия
+                if (string.IsNullOrEmpty(SelectedPracticeType) || SelectedSpeciality == null || string.IsNullOrEmpty(ModulePractice) || SelectedTeacher == null || CountHours <= 1 || string.IsNullOrEmpty(SpeciesOrganisation) || string.IsNullOrEmpty(City) || string.IsNullOrEmpty(StreetHouse)) 
                 {
-                    if (DateStart.Date >= DateTime.Now || DateEnd.Date >= DateStart) //Тут вообще неясно почему их C# и в хуй не ставит...
+                    MessageBox.Show("Не все поля заполнены или заполнены неверно!", "Смотрите внимательно", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                else
+                {
+                    if (DateStart.Date != DateEnd.Date)
                     {
                         Practice = new Practice() { Organisation = SpeciesOrganisation, City = City, StreetHouse = StreetHouse, PracticeType = SelectedPracticeType, ModulePractice = ModulePractice, TeacherId = SelectedTeacher.Id, DateStart = DateStart, DateEnd = DateEnd, CountHours = CountHours };
                         mainVM.SetPage(new ListAllStudentPage(Practice, mainVM, SelectedSpeciality));
                     }
                     else
                     {
-                        MessageBox.Show("Даты выставленны неверно");
+                        MessageBox.Show("Практика не может длиться 0 дней", "Проставьте даты", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Не все поля заполнены. Пустыми вы можете оставить лишь поля: \"Организация\", \"Населённый пункт\", \"Улица и дом\"");
-                    return;
                 }
 
             });

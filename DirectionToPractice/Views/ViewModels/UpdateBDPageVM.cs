@@ -66,28 +66,35 @@ namespace DirectionToPractice.Views.ViewModels
 
             DeleteListStudent = new Command(() =>
             {
-                StudentPractices = new List<StudentPractice>(practiceContext.GetInstance().StudentPractices.ToList());
-                Students = new List<Student>(practiceContext.GetInstance().Students.ToList());
-                Practices = new List<Practice>(practiceContext.GetInstance().Practices.ToList());
-                try
+                if (MessageBox.Show("Если вы удалите студентов, то за ними последуют и созданные практики. Вы хотите продолжить?",
+                    "Удаление данных",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    practiceContext.GetInstance().StudentPractices.RemoveRange(StudentPractices);
-                    practiceContext.GetInstance().SaveChanges();
+                    StudentPractices = new List<StudentPractice>(practiceContext.GetInstance().StudentPractices.ToList());
+                    Students = new List<Student>(practiceContext.GetInstance().Students.ToList());
+                    Practices = new List<Practice>(practiceContext.GetInstance().Practices.ToList());
+                    try
+                    {
+                        practiceContext.GetInstance().StudentPractices.RemoveRange(StudentPractices);
+                        practiceContext.GetInstance().SaveChanges();
 
-                    practiceContext.GetInstance().Students.RemoveRange(Students);
-                    practiceContext.GetInstance().SaveChanges();
+                        practiceContext.GetInstance().Students.RemoveRange(Students);
+                        practiceContext.GetInstance().SaveChanges();
 
-                    practiceContext.GetInstance().RemoveRange(Practices);
-                    practiceContext.GetInstance().SaveChanges();
+                        practiceContext.GetInstance().RemoveRange(Practices);
+                        practiceContext.GetInstance().SaveChanges();
 
-                    MessageBox.Show("Все студенты успешно удалены");
-                    return;
+                        MessageBox.Show("Все студенты успешно удалены");
+                        return;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
-                catch
-                {
-                    MessageBox.Show("Что-то пошло не так");
-                    return;
-                }
+                
                 
             });
         }

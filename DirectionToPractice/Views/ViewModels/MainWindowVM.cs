@@ -2,6 +2,7 @@
 using DirectionToPractice.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,19 @@ namespace DirectionToPractice.Views.ViewModels
 
             Info = new Command(() =>
             {
-                MessageBox.Show("");
+                if (MessageBox.Show("Перед началом работы загрузите список студентов в приложение. Для этого нажмите на кнопку \"Обновить БД\" и далее загрузите список студентов в word документе, который обязательно должен соответствовать нужному формату. В этом приложении вы можете создавать по одному или сразу несколько направлений на практику за раз, введя необходимые общие данные. Вы хотите ознакомится с примером списка студентов, соответствующий нужному формату?",
+                    "Информация",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string file = "Пример списка студентов.docx";
+                    ProcessStartInfo process = new ProcessStartInfo();
+                    process.FileName = "explorer.exe";
+                    process.Arguments = file;
+                    process.UseShellExecute = true;
+                    System.Diagnostics.Process.Start(process);
+                }
+                
             });
         }
 

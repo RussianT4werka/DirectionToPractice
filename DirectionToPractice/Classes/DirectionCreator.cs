@@ -110,7 +110,8 @@ namespace DirectionToPractice.Classes
             }
             catch
             {
-                MessageBox.Show("Закройте предыдущий файл");
+                MessageBox.Show("Закройте предыдущий файл", "Несерьёзная ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
         }

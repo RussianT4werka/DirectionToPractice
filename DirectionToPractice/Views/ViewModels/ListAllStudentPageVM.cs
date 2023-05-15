@@ -89,10 +89,14 @@ namespace DirectionToPractice.Views.ViewModels
                     {
                         StudentPractices.Add(new StudentPractice { PracticeId = Practice.Id, StudentId = student.Id, Practice = Practice, Student = student });
                         DirectionCreator.GetDirections(student, practice);
+                        student.Select = false;
+                        SignalChanged(nameof(student.Select));
                     }
                 }
                 practiceContext.GetInstance().StudentPractices.AddRange(StudentPractices);
                 practiceContext.GetInstance().SaveChanges();
+
+
                 mainVM.SetPage(new ListCreatedDirectionPage(mainVM));
             });
         }
