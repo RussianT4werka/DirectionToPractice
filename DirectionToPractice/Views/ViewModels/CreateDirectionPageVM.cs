@@ -13,9 +13,7 @@ namespace DirectionToPractice.Views.ViewModels
         private bool block = true;
         private string selectedPracticeType;
         private Practice practice;
-        private Speciality selectedSpeciality;
         private List<Speciality> specialitys;
-        private string searchTeacher;
 
         public Student SelectedStudent { get; set; }
 
@@ -72,25 +70,7 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
-        public Speciality SelectedSpeciality
-        {
-            get => selectedSpeciality;
-            set
-            {
-                selectedSpeciality = value;
-                SignalChanged();
-            }
-        }
-
-        public string SearchTeacher 
-        { 
-            get => searchTeacher;
-            set
-            {
-                searchTeacher = value;
-                DoSearch();
-            }
-        }
+        public Speciality SelectedSpeciality { get; set; }
 
         public Command CreateDirection { get; set; }
         public CreateDirectionPageVM(MainWindowVM mainVM)
@@ -122,13 +102,6 @@ namespace DirectionToPractice.Views.ViewModels
             });
         }
 
-        private void DoSearch()
-        {
-            IQueryable<Teacher> searchTeacher = practiceContext.GetInstance().Teachers;
-
-            if (!string.IsNullOrEmpty(SearchTeacher))
-                searchTeacher = searchTeacher.Where(s => s.Surname.Contains(SearchTeacher) || s.Name.Contains(SearchTeacher) || s.Patronymic.Contains(SearchTeacher));
-            Teachers = new List<Teacher>(searchTeacher);
-        }
+        
     }
 }

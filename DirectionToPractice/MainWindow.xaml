@@ -20,12 +20,14 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Button Margin="0" Content="  Составить&#x0a;направления" Command="{Binding CreateDirection}"/>
             <Button Grid.Row="1" Margin="0" Content="     Список&#x0a;направлений" Command="{Binding ListAllCreatedDirection}"/>
-            <Button Grid.Row="2" Margin="0" Command="{Binding ToUpdateBDPage}" Content="Обновить БД"/>
-            <Button Grid.Row="3" Margin="0" Command="{Binding Info}" Content="О приложении*"/>
+            <Button Grid.Row="2" Margin="0" Content="       Список&#x0a;преподавателей" Command="{Binding ListAllTeachers}"/>
+            <Button Grid.Row="3" Margin="0" Command="{Binding ToUpdateBDPage}" Content="Обновить БД"/>
+            <Button Grid.Row="4" Margin="0" Command="{Binding Info}" Content="О приложении*"/>
         </Grid>
         <Frame Grid.Column="0" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
     </Grid>

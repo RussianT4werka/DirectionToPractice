@@ -16,6 +16,7 @@ namespace DirectionToPractice.Views.ViewModels
         private Stack<Page> pages = new();
         private Page currentPage;
         public Command ListAllCreatedDirection { get; set; }
+        public Command ListAllTeachers { get; set; }
         public Command CreateDirection { get; set; }
         public Command ToUpdateBDPage { get; set; }
         public Command Info { get; set; }
@@ -41,6 +42,11 @@ namespace DirectionToPractice.Views.ViewModels
             ListAllCreatedDirection = new Command(() =>
             {
                 SetPage(new ListCreatedDirectionPage(this));
+            });
+
+            ListAllTeachers = new Command(() =>
+            {
+                SetPage(new ListTeachers());
             });
 
             ToUpdateBDPage = new Command(() =>

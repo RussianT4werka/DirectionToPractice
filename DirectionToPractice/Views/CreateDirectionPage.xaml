@@ -34,7 +34,7 @@
 
         <StackPanel Margin="10 0 10 0" Grid.Row="1" VerticalAlignment="Center">
             <Label Content="Специальность"/>
-            <ComboBox ItemsSource="{Binding Specialitys}"
+            <ComboBox IsEditable="True" ItemsSource="{Binding Specialitys}"
                       DisplayMemberPath="FullName"
                       SelectedItem="{Binding SelectedSpeciality}"/>
         </StackPanel>
@@ -82,7 +82,7 @@
         <StackPanel Margin="10 0 10 0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1">
             <Label Content="Руководитель практики"/>
             <Grid>
-                <ComboBox IsEditable="True" Text="{Binding SearchTeacher}" ItemsSource="{Binding Teachers}"
+                <ComboBox IsEditable="True" ItemsSource="{Binding Teachers}"
                            DisplayMemberPath="SNP"
                            SelectedItem="{Binding SelectedTeacher}"/>
             </Grid>
