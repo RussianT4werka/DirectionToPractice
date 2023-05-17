@@ -14,6 +14,8 @@ namespace DirectionToPractice.Views.ViewModels
         private string selectedPracticeType;
         private Practice practice;
         private Speciality selectedSpeciality;
+        private List<Speciality> specialitys;
+        private string searchTeacher;
 
         public Student SelectedStudent { get; set; }
 
@@ -26,9 +28,9 @@ namespace DirectionToPractice.Views.ViewModels
                 SignalChanged();
             }
         }
-        
-        public string SelectedPracticeType 
-        { 
+
+        public string SelectedPracticeType
+        {
             get => selectedPracticeType;
             set
             {
@@ -37,6 +39,7 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
         public string ModulePractice { get; set; }
+        public int Course { get; set; }
 
         public List<Teacher> Teachers { get; set; }
         public Teacher SelectedTeacher { get; set; }
@@ -59,7 +62,15 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
-        public List<Speciality> Specialitys { get; set; }
+        public List<Speciality> Specialitys
+        {
+            get => specialitys;
+            set
+            {
+                specialitys = value;
+                SignalChanged();
+            }
+        }
 
         public Speciality SelectedSpeciality
         {
@@ -71,6 +82,16 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
+        public string SearchTeacher 
+        { 
+            get => searchTeacher;
+            set
+            {
+                searchTeacher = value;
+                DoSearch();
+            }
+        }
+
         public Command CreateDirection { get; set; }
         public CreateDirectionPageVM(MainWindowVM mainVM)
         {
@@ -78,17 +99,18 @@ namespace DirectionToPractice.Views.ViewModels
             Teachers = new List<Teacher>(practiceContext.GetInstance().Teachers.ToList());
             CreateDirection = new Command(() =>
             {
-                if (string.IsNullOrEmpty(SelectedPracticeType) || SelectedSpeciality == null || string.IsNullOrEmpty(ModulePractice) || SelectedTeacher == null || CountHours <= 1 || string.IsNullOrEmpty(SpeciesOrganisation) || string.IsNullOrEmpty(City) || string.IsNullOrEmpty(StreetHouse)) 
+                if (string.IsNullOrEmpty(SelectedPracticeType) || SelectedSpeciality == null || string.IsNullOrEmpty(ModulePractice) || SelectedTeacher == null || CountHours <= 1 || string.IsNullOrEmpty(SpeciesOrganisation) || string.IsNullOrEmpty(City) || string.IsNullOrEmpty(StreetHouse) || Course < 1 || Course > 4)
                 {
                     MessageBox.Show("Не все поля заполнены или заполнены неверно!", "Смотрите внимательно", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 else
                 {
+
                     if (DateStart.Date != DateEnd.Date)
                     {
                         Practice = new Practice() { Organisation = SpeciesOrganisation, City = City, StreetHouse = StreetHouse, PracticeType = SelectedPracticeType, ModulePractice = ModulePractice, TeacherId = SelectedTeacher.Id, DateStart = DateStart, DateEnd = DateEnd, CountHours = CountHours };
-                        mainVM.SetPage(new ListAllStudentPage(Practice, mainVM, SelectedSpeciality));
+                        mainVM.SetPage(new ListAllStudentPage(Practice, mainVM, SelectedSpeciality, Course));
                     }
                     else
                     {
@@ -98,6 +120,15 @@ namespace DirectionToPractice.Views.ViewModels
                 }
 
             });
+        }
+
+        private void DoSearch()
+        {
+            IQueryable<Teacher> searchTeacher = practiceContext.GetInstance().Teachers;
+
+            if (!string.IsNullOrEmpty(SearchTeacher))
+                searchTeacher = searchTeacher.Where(s => s.Surname.Contains(SearchTeacher) || s.Name.Contains(SearchTeacher) || s.Patronymic.Contains(SearchTeacher));
+            Teachers = new List<Teacher>(searchTeacher);
         }
     }
 }

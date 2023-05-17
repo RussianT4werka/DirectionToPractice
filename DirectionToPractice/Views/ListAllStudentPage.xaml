@@ -24,7 +24,7 @@
                 <DataGridTextColumn Width="150" Header="Фамилия" IsReadOnly="True" Binding="{Binding Surname}"/>
                 <DataGridTextColumn Width="150" Header="Имя" IsReadOnly="True" Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="150" Header="Отчество" IsReadOnly="True" Binding="{Binding Patronymic}"/>
-                <DataGridTextColumn Width="100" Header="Группа" IsReadOnly="True" Binding="{Binding Group.Number}"/>
+                <DataGridTextColumn Width="100" Header="Группа" IsReadOnly="True" Binding="{Binding GroupNumber}"/>
                 <DataGridCheckBoxColumn Header="Выбрать" Binding="{Binding Select}"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DirectionToPractice.Views" xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1650"
       Title="CreateDirectionPage">
 
     <Grid>
@@ -39,7 +39,12 @@
                       SelectedItem="{Binding SelectedSpeciality}"/>
         </StackPanel>
 
-        <StackPanel Margin="10 0 10 0" Grid.Row="2" VerticalAlignment="Top">
+        <StackPanel Margin="10 0 10 0" Grid.Row="2">
+            <Label Content="Курс"/>
+            <TextBox Text="{Binding Course}"/>
+        </StackPanel>
+
+        <StackPanel Margin="10 0 10 0" Grid.Row="3" VerticalAlignment="Top">
             <Label Content="Модуль практики с названием"/>
             <TextBox Text="{Binding ModulePractice}"/>
         </StackPanel>
@@ -74,11 +79,14 @@
             <TextBox Text="{Binding StreetHouse}"/>
         </StackPanel>
 
-        <StackPanel Margin="10 0 10 0" VerticalAlignment="Top" Grid.Row="3">
+        <StackPanel Margin="10 0 10 0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1">
             <Label Content="Руководитель практики"/>
-            <ComboBox ItemsSource="{Binding Teachers}"
-                      DisplayMemberPath="SNP"
-                      SelectedItem="{Binding SelectedTeacher}"/>
+            <Grid>
+                <ComboBox IsEditable="True" Text="{Binding SearchTeacher}" ItemsSource="{Binding Teachers}"
+                           DisplayMemberPath="SNP"
+                           SelectedItem="{Binding SelectedTeacher}"/>
+            </Grid>
+            
         </StackPanel>
 
         <Border Grid.Row="4"  Grid.ColumnSpan="3" Background="#FF295496">

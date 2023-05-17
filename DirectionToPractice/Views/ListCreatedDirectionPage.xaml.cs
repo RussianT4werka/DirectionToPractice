@@ -30,7 +30,7 @@ namespace DirectionToPractice.Views
     public partial class ListCreatedDirectionPage : Page, INotifyPropertyChanged
     {
         private ObservableCollection<StudentPractice> studentPractices;
-        private StudentPractice selectedStudentPractice;
+        private StudentPractice selectedStudentPractice1;
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void SignalChanged([CallerMemberName] string prop = null)
@@ -48,15 +48,16 @@ namespace DirectionToPractice.Views
             }
         }
 
-        public StudentPractice SelectedStudentPractice
-        {
-            get => selectedStudentPractice;
+        public StudentPractice SelectedStudentPractice 
+        { 
+            get => selectedStudentPractice1;
             set
             {
-                selectedStudentPractice = value;
+                selectedStudentPractice1 = value;
                 SignalChanged();
             }
         }
+        public List<Speciality> Specialities { get; set; }
         public List<string> PracticeTypes { get; set; }
         public Practice Practice { get; set; }
         public List<Teacher> Teachers { get; set; }
@@ -64,7 +65,8 @@ namespace DirectionToPractice.Views
         {
             InitializeComponent();
             DataContext = this;
-            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include(s => s.Student).ThenInclude(s => s.Group).ThenInclude(s => s.Speciality).Include(s => s.Practice).ToList());
+            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include(s => s.Student).Include(s => s.Practice).ToList());
+            Specialities = practiceContext.GetInstance().Specialities.ToList();
             PracticeTypes = new List<string> { "учебной", "производственной", "преддипломной" };
             Teachers = practiceContext.GetInstance().Teachers.ToList();
         }
@@ -75,11 +77,14 @@ namespace DirectionToPractice.Views
 
         private void OpenDocument(object sender, RoutedEventArgs e)
         {
-            foreach(var sp in StudentPractices)
+            if(SelectedStudentPractice.SelectedSpeciality != null && SelectedStudentPractice.Course >= 1 && SelectedStudentPractice.Course <= 4)
             {
-                Practice = new Practice() { Organisation = sp.Practice.Organisation, City = sp.Practice.City, StreetHouse = sp.Practice.StreetHouse, PracticeType = sp.Practice.PracticeType, ModulePractice = sp.Practice.ModulePractice, Teacher = sp.Practice.Teacher, DateStart = sp.Practice.DateStart, DateEnd = sp.Practice.DateEnd, CountHours = sp.Practice.CountHours};
+                DirectionCreator.GetDirections(SelectedStudentPractice.Student, SelectedStudentPractice.Practice, SelectedStudentPractice.SelectedSpeciality, SelectedStudentPractice.Course);
             }
-            DirectionCreator.GetDirections(SelectedStudentPractice.Student, Practice);
+            else
+            {
+                MessageBox.Show("Не все поля заполнены!");
+            }
         }
     }
 }

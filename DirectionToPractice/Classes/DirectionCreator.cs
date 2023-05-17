@@ -17,7 +17,7 @@ namespace DirectionToPractice.Classes
         private static CyrName cyrName = new CyrName();
         private static CyrNumber cyrNumber = new CyrNumber();
 
-        public static void GetDirections(Student student, Practice practice)
+        public static void GetDirections(Student student, Practice practice, Speciality selectedSpeciality, int course)
         {
             //Загружаем документ
             Document document = new Document();
@@ -33,9 +33,9 @@ namespace DirectionToPractice.Classes
 
             //Выбираем 7 абзац
             Paragraph paraCCS = section.Paragraphs[7];
-            paraCCS.Replace("3", $"{student.Group.Course}", false, true);
-            paraCCS.Replace("09.02.02", $"{student.Group.Speciality.Code}", false, true);
-            paraCCS.Replace("Компьютерные сети", $"{student.Group.Speciality.Name}", false, true);
+            paraCCS.Replace("3", $"{course}", false, true);
+            paraCCS.Replace("09.02.02", $"{selectedSpeciality.Code}", false, true);
+            paraCCS.Replace("Компьютерные сети", $"{selectedSpeciality.Name}", false, true);
 
             //Выбираем 8 абзац
             Paragraph paraSP = section.Paragraphs[8];
@@ -100,7 +100,7 @@ namespace DirectionToPractice.Classes
 
             try
             {
-                string file = $"Направление на Практику {student.FIO} гр.{student.Group.Number}.docx";
+                string file = $"Направление на Практику {student.FIO} гр.{student.GroupNumber}.docx";
                 document.SaveToFile(file, FileFormat.Docx);
                 ProcessStartInfo process = new ProcessStartInfo();
                 process.FileName = "explorer.exe";

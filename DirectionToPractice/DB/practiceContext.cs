@@ -15,7 +15,7 @@ namespace DirectionToPractice.DB
             Database.EnsureCreated();
         }
 
-        public virtual DbSet<Group> Groups { get; set; } = null!;
+
         public virtual DbSet<Practice> Practices { get; set; } = null!;
         public virtual DbSet<Speciality> Specialities { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
@@ -27,32 +27,13 @@ namespace DirectionToPractice.DB
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("Filename=practice.db");
+                optionsBuilder.UseSqlServer("server=192.168.200.35;user=user50;database=practice;password=26643");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("Cyrillic_General_100_CI_AI_SC_UTF8");
-
-            modelBuilder.Entity<Group>(entity =>
-            {
-                entity.HasKey(e => e.Number)
-                    .HasName("PK_Group_1");
-
-                entity.ToTable("Group");
-
-                entity.HasIndex(e => e.SpecialityId, "IX_Group_SpecialityID");
-
-                entity.Property(e => e.Number).ValueGeneratedNever();
-
-                entity.Property(e => e.SpecialityId).HasColumnName("SpecialityID");
-
-                entity.HasOne(d => d.Speciality)
-                    .WithMany(p => p.Groups)
-                    .HasForeignKey(d => d.SpecialityId)
-                    .HasConstraintName("FK_Group_Speciality");
-            });
 
             modelBuilder.Entity<Practice>(entity =>
             {
@@ -100,12 +81,6 @@ namespace DirectionToPractice.DB
                 entity.Property(e => e.Patronymic).HasMaxLength(50);
 
                 entity.Property(e => e.Surname).HasMaxLength(50);
-
-                entity.HasOne(d => d.Group)
-                    .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.GroupNumber)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Student_Group");
             });
 
             modelBuilder.Entity<StudentPractice>(entity =>
@@ -147,10 +122,7 @@ namespace DirectionToPractice.DB
 
         public static practiceContext GetInstance()
         {
-            if (instance == null)
-            {
-                instance = new practiceContext();
-            }
+            instance ??= new practiceContext();
             return instance;
         }
     }

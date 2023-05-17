@@ -57,23 +57,16 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
 
-        public Speciality Speciality 
-        { 
-            get => speciality;
-            set
-            {
-                speciality = value;
-                SignalChanged();
-            }
-        }
+        public Speciality Speciality;
+        
 
         public List<StudentPractice> StudentPractices { get; set; }
 
-        public ListAllStudentPageVM(Practice practice, MainWindowVM mainVM, Speciality? selectedSpeciality)
+        public ListAllStudentPageVM(Practice practice, MainWindowVM mainVM, Speciality? selectedSpeciality, int course)
         {
             this.Speciality = selectedSpeciality;
             Practice = practice;
-            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.Include(s => s.Group).ThenInclude(s => s.Speciality).Where(s => s.Group.SpecialityId == Speciality.Id).ToList());
+            Students = new ObservableCollection<Student>(practiceContext.GetInstance().Students.ToList());
             CreateDirections = new Command(() =>
             {
                 if (Practice.Id != 0)
@@ -88,7 +81,7 @@ namespace DirectionToPractice.Views.ViewModels
                     if (student.Select)
                     {
                         StudentPractices.Add(new StudentPractice { PracticeId = Practice.Id, StudentId = student.Id, Practice = Practice, Student = student });
-                        DirectionCreator.GetDirections(student, practice);
+                        DirectionCreator.GetDirections(student, practice, selectedSpeciality, course);
                         student.Select = false;
                         SignalChanged(nameof(student.Select));
                     }

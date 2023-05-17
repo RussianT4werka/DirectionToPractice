@@ -47,13 +47,17 @@
         </Style>
         <CollectionViewSource x:Key="practiceTypes" Source="{Binding PracticeTypes}"/>
         <CollectionViewSource x:Key="teacher" Source="{Binding Teachers}"/>
+        <CollectionViewSource x:Key="speciality" Source="{Binding Specialities}"/>
     </Page.Resources>
 
     <Grid>
         <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedValue="{Binding SelectedStudentPractice}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Student.Group.Number}"/>
-                <DataGridTextColumn Header="Код спец." IsReadOnly="True" Binding="{Binding Student.Group.Speciality.Code}"/>
+                <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Student.GroupNumber}"/>
+                <DataGridComboBoxColumn Header="Специальность" ItemsSource="{Binding Source={StaticResource speciality}}" 
+                                        DisplayMemberPath="FullName"
+                                        SelectedValueBinding="{Binding SelectedSpeciality}"/>
+                <DataGridTextColumn Header="Курс" Binding="{Binding Course}"/>
                 <DataGridTextColumn Header="Фамилия" IsReadOnly="True" Binding="{Binding Student.Surname}"/>
                 <DataGridTextColumn Header="Имя" IsReadOnly="True" Binding="{Binding Student.Name}"/>
                 <DataGridTextColumn Header="Отчество" IsReadOnly="True" Binding="{Binding Student.Patronymic}"/>
