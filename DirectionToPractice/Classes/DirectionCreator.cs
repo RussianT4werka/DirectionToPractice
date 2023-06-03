@@ -29,7 +29,7 @@ namespace DirectionToPractice.Classes
 
             CyrResult resultFIO = cyrName.Decline($"{student.Surname}", $"{student.Name}", $"{student.Patronymic}");
 
-            paraFIO.Replace("Лукошкина_______Анатолия___________Алексеевича", $"{resultFIO.Родительный}", false, true);
+            paraFIO.Replace("Лукошкина_______Анатолия___________Алексеевича", $"{resultFIO.Винительный}", false, true);
 
             //Выбираем 7 абзац
             Paragraph paraCCS = section.Paragraphs[7];

@@ -25,7 +25,7 @@
 
         <StackPanel Margin="10 0 10 0" VerticalAlignment="Bottom">
             <Label Content="Вид практики"/>
-            <ComboBox SelectedValue="{Binding SelectedPracticeType}">
+            <ComboBox IsEditable="True" SelectedValue="{Binding SelectedPracticeType}">
                 <system:String>учебной</system:String>
                 <system:String>производственной</system:String>
                 <system:String>преддипломной</system:String>
