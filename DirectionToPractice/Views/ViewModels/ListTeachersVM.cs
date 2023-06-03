@@ -13,9 +13,10 @@ namespace DirectionToPractice.Views.ViewModels
     public class ListTeachersVM : BaseVM
     {
         private List<Teacher> teachers;
+        private Teacher selectedTeacher;
 
-        public List<Teacher> Teachers 
-        { 
+        public List<Teacher> Teachers
+        {
             get => teachers;
             set
             {
@@ -24,8 +25,17 @@ namespace DirectionToPractice.Views.ViewModels
             }
         }
         public Teacher Teacher { get; set; }
-        public Teacher SelectedTeacher { get; set; }
+        public Teacher SelectedTeacher 
+        {
+            get => selectedTeacher;
+            set
+            {
+                selectedTeacher = value;
+                SignalChanged();
+            }
+        }
         public Command SaveTeacher { get; set; }
+        public Command UpdateTeacher { get; set; }
         public Command RemoveTeacher { get; set; }
         public string Surname { get; set; }
         public string NameF { get; set; }
@@ -55,9 +65,22 @@ namespace DirectionToPractice.Views.ViewModels
                 }
             });
 
+            UpdateTeacher = new Command(() =>
+            {
+                if (selectedTeacher != null)
+                {
+                    SelectedTeacher.Surname = selectedTeacher.Surname;
+                    SelectedTeacher.Name = selectedTeacher.Name;
+                    SelectedTeacher.Patronymic = selectedTeacher.Patronymic;
+                    practiceContext.GetInstance().Teachers.Update(SelectedTeacher);
+                    practiceContext.GetInstance().SaveChanges();
+                }
+
+            });
+
             RemoveTeacher = new Command(() =>
             {
-                if(SelectedTeacher == null)
+                if (SelectedTeacher == null)
                 {
                     MessageBox.Show("Выберите преподавателя");
                     return;

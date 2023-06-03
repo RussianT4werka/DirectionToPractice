@@ -27,64 +27,16 @@ namespace DirectionToPractice.Views
     /// <summary>
     /// Логика взаимодействия для ListStudentPage.xaml
     /// </summary>
-    public partial class ListCreatedDirectionPage : Page, INotifyPropertyChanged
+    public partial class ListCreatedDirectionPage : Page
     {
-        private ObservableCollection<StudentPractice> studentPractices;
-        private StudentPractice selectedStudentPractice1;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void SignalChanged([CallerMemberName] string prop = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
-
-        public ObservableCollection<StudentPractice> StudentPractices
-        {
-            get => studentPractices;
-            set
-            {
-                studentPractices = value;
-                SignalChanged();
-            }
-        }
-
-        public StudentPractice SelectedStudentPractice 
-        { 
-            get => selectedStudentPractice1;
-            set
-            {
-                selectedStudentPractice1 = value;
-                SignalChanged();
-            }
-        }
-        public List<Speciality> Specialities { get; set; }
-        public List<string> PracticeTypes { get; set; }
-        public Practice Practice { get; set; }
-        public List<Teacher> Teachers { get; set; }
         public ListCreatedDirectionPage(MainWindowVM mainVM)
         {
             InitializeComponent();
-            DataContext = this;
-            StudentPractices = new ObservableCollection<StudentPractice>(practiceContext.GetInstance().StudentPractices.Include(s => s.Student).Include(s => s.Practice).ToList());
-            Specialities = practiceContext.GetInstance().Specialities.ToList();
-            PracticeTypes = new List<string> { "учебной", "производственной", "преддипломной" };
-            Teachers = practiceContext.GetInstance().Teachers.ToList();
+            DataContext = new ListCreatedDirectionPageVM();
         }
         private void Ai(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
-        }
-
-        private void OpenDocument(object sender, RoutedEventArgs e)
-        {
-            if(SelectedStudentPractice.SelectedSpeciality != null && SelectedStudentPractice.Course >= 1 && SelectedStudentPractice.Course <= 4)
-            {
-                DirectionCreator.GetDirections(SelectedStudentPractice.Student, SelectedStudentPractice.Practice, SelectedStudentPractice.SelectedSpeciality, SelectedStudentPractice.Course);
-            }
-            else
-            {
-                MessageBox.Show("Не все поля заполнены!");
-            }
         }
     }
 }

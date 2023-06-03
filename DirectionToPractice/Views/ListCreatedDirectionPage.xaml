@@ -51,7 +51,11 @@
     </Page.Resources>
 
     <Grid>
-        <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedValue="{Binding SelectedStudentPractice}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DataGrid LoadingRow="Ai" ItemsSource="{Binding StudentPractices}" SelectedItem="{Binding SelectedStudentPractice}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Группа" IsReadOnly="True" Binding="{Binding Student.GroupNumber}"/>
                 <DataGridComboBoxColumn Header="Специальность" ItemsSource="{Binding Source={StaticResource speciality}}" 
@@ -87,14 +91,11 @@
                 <DataGridTextColumn Header="Организация" Binding="{Binding Practice.Organisation}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Населённый пункт" Binding="{Binding Practice.City}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Улица и дом" Binding="{Binding Practice.StreetHouse}" IsReadOnly="True"/>
-                <DataGridTemplateColumn CellStyle="{DynamicResource DataGridTemplateColumnCellStyle1}">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Открыть" Click="OpenDocument"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Border Grid.Row="2" Background="#FF295496">
+            <Button MinWidth="250" HorizontalAlignment="Center" Margin="0 20 0 20" Command="{Binding OpenDocument}" Content="Открыть"/>
+        </Border>
     </Grid>
 </Page>
